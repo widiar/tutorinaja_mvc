@@ -1,6 +1,15 @@
+.col-md-2 {
+  padding-bottom: 26%;
+  /* margin-bottom: -100%; */
+}
+/* .col-md-10 {
+  overflow: hidden;
+} */
 .nav-link:hover {
   background-color: #138496;
 }
+
+/*jumbotron*/
 
 /*jumbotron*/
 .jumbotron {
@@ -28,14 +37,15 @@
 .card {
   display: flex;
 }
-#apa {
+#image {
+  margin-top: 70px;
   height: 440px;
   width: 459px;
 }
 .content img {
   width: 50px;
   height: 40px;
-  margin-left: 100px;
+  margin-left: 50px;
   margin-top: 28px;
 }
 .media {
@@ -216,10 +226,6 @@
 }
 
 @media (max-width: 880px) {
-  #gambar,
-  #apa {
-    display: none;
-  }
   .footer-distributed {
     font: bold 14px sans-serif;
   }
