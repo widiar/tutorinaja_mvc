@@ -67,20 +67,20 @@
     <section>
         <div class="container">
             <div class="media">
-                <img src="assets/img/gambar 2.png" id="apa" class="align-self-start mr-3" alt="icon">
+                <img src="assets/img/gambar 2.png" id="image" class="align-self-start mr-3" alt="icon">
                 <div class="media-body">
                     <h5 class="display-4 text-muted">Mengapa harus <span class="font-weight-bold text-info">Tutorin Aja!</span></h5>
                     <div class="content">
                         <img src="assets/img/petik.png" alt="icon" class="float">
-                        <p class="text-muted">Tutor Berkualitas</p>
+                        <p class="text-muted">Tutor yang bekerja sama dengan Tutorin Aja! adalah tutor yang berkompeten di bidangnya.</p>
                     </div>
                     <div class="content">
                         <img src="assets/img/petik.png" alt="icon" class="float">
-                        <p class="text-muted">Terpercaya</p>
+                        <p class="text-muted">Tutorin Aja! adalah platform yang terpercaya untuk menemukan tutor hebat guna menambah wawasan siswa di luar jam sekolah.</p>
                     </div>
                     <div class="content">
                         <img src="assets/img/petik.png" alt="icon" class="float">
-                        <p class="text-muted">Mudah Diakses</p>
+                        <p class="text-muted">Tutorin Aja! memberikan kemudahan siswa untuk mengakses informasi mengenai tutor dan mata pelajaran yang ingin dikuasai.</p>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                                     <div class="card-title text">
                                         <h4>DAFTAR</h4>
                                     </div>
-                                    Lakukan pendaftaran terlebih dahulu agar dapat mengakses website. User dapat mendaftar sebagai tutor ataupun siswa
+                                    <p class="text-muted">Lakukan pendaftaran terlebih dahulu agar dapat mengakses website. User dapat mendaftar sebagai tutor ataupun siswa</p>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                     <div class="card-title">
                                         <h4>CARI TUTOR</h4>
                                     </div>
-                                    Pilih guru privat yang kamu butuhkan. Masukan mata pelajaran, kecamatan/kota wilayah tempat tinggalmu, klik find tutor
+                                    <p class="text-muted">Pilih guru privat yang kamu butuhkan. Masukan mata pelajaran, kecamatan/kota wilayah tempat tinggalmu, klik find tutor</p>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                     <div class="card-title">
                                         <h4>RESERVASI</h4>
                                     </div>
-                                    Anda dapat melakukan reservasi setelah mendapatkan tutor yang tepat, kamu dapat memilih durasi sesuai keinginan
+                                    <p class="text-muted">Anda dapat melakukan reservasi setelah mendapatkan tutor yang tepat, kamu dapat memilih durasi sesuai keinginan</p>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                     <div class="card-title">
                                         <h4>KONFIRMASI</h4>
                                     </div>
-                                    Tutor akan menerima proses permintaan kamu & kamu langsung bisa belajar dengan guru les pilihan kamu setelah dikonfirmasi
+                                    <p class="text-muted">Tutor akan menerima proses permintaan kamu & kamu langsung bisa belajar dengan guru les pilihan kamu setelah dikonfirmasi</p>
                                 </div>
                             </div>
                         </div>
@@ -187,11 +187,6 @@
                 <span>Tentang Tutorin Aja!</span>
                 Solusi untuk permasalahan yang dihadapi para pelajar &amp; memberikan peluang kepada pengajar.
             </p>
-            <div class="footer-icons">
-                <a href="#"><i class="fab fa-facebook"></i></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></i></a>
-            </div>
     </footer>
     <!--end footer-->
 
