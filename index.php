@@ -31,9 +31,9 @@
                             MASUK
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="login_tutor.html">Masuk sebagai Tutor</a>
-                            <a class="dropdown-item" href="login_siswa.html">Masuk sebagai Siswa</a>
-                            <a class="dropdown-item" href="login_admin.html">Masuk sebagai Admin</a>
+                            <a class="dropdown-item" href="login_tutor.php">Masuk sebagai Tutor</a>
+                            <a class="dropdown-item" href="login_siswa.php">Masuk sebagai Siswa</a>
+                            <a class="dropdown-item" href="login_admin.php">Masuk sebagai Admin</a>
                         </div>
                     </li>
                     <li class="nav-item ml-2 dropdown">
@@ -41,8 +41,8 @@
                             DAFTAR
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="daftar_tutor.html">Daftar sebagai Tutor</a>
-                            <a class="dropdown-item" href="daftar_siswa.html">Daftar sebagai Siswa</a>
+                            <a class="dropdown-item" href="daftar_tutor.php">Daftar sebagai Tutor</a>
+                            <a class="dropdown-item" href="daftar_siswa.php">Daftar sebagai Siswa</a>
                         </div>
                     </li>
                 </ul>
