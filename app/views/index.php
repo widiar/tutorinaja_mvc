@@ -7,18 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/fontawesome/css/all.min.css">
 
-    <title>Tutorin Aja!</title>
+    <title><?= $data['judul'] ?></title>
 </head>
 
 <body>
     <!--navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand font-weight-bold text-white" href="index.php">
+            <a class="navbar-brand font-weight-bold text-white" href="<?= BASEURL ?>">
                 <i class="fab fa-accusoft mr-2"></i>Tutorin Aja!
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -26,15 +26,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item ml-2 dropdown">
-                        <a class="nav-link text-white dropdown-toggle" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item ml-2">
+                        <a class="nav-link text-white" role="button" href="auth/login">
                             MASUK
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="login_tutor.php">Masuk sebagai Tutor</a>
-                            <a class="dropdown-item" href="login_siswa.php">Masuk sebagai Siswa</a>
-                            <a class="dropdown-item" href="login_admin.php">Masuk sebagai Admin</a>
-                        </div>
                     </li>
                     <li class="nav-item ml-2 dropdown">
                         <a class="nav-link text-white dropdown-toggle" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,7 +54,7 @@
                 Tutorin Aja! merupakan website yang menyediakan jasa private tutor <br>untuk siswa pada jenjang pendidikan SD, SMP, dan SMA<br>di daerah Bali
             </p>
         </div>
-        <img src="assets/img/gambar 1.png" alt="icon" class="float-right" id="gambar">
+        <img src="<?= BASEURL ?>/img/gambar 1.png" alt="icon" class="float-right" id="gambar">
     </div>
     <!--end jumbotron-->
 
@@ -67,19 +62,19 @@
     <section>
         <div class="container">
             <div class="media">
-                <img src="assets/img/gambar 2.png" id="image" class="align-self-start mr-3" alt="icon">
+                <img src="<?= BASEURL ?>/img/gambar 2.png" id="image" class="align-self-start mr-3" alt="icon">
                 <div class="media-body">
                     <h5 class="display-4 text-muted">Mengapa harus <span class="font-weight-bold text-info">Tutorin Aja!</span></h5>
                     <div class="content">
-                        <img src="assets/img/petik.png" alt="icon" class="float">
+                        <img src="<?= BASEURL ?>/img/petik.png" alt="icon" class="float">
                         <p class="text-muted">Tutor yang bekerja sama dengan Tutorin Aja! adalah tutor yang berkompeten di bidangnya.</p>
                     </div>
                     <div class="content">
-                        <img src="assets/img/petik.png" alt="icon" class="float">
+                        <img src="<?= BASEURL ?>/img/petik.png" alt="icon" class="float">
                         <p class="text-muted">Tutorin Aja! adalah platform yang terpercaya untuk menemukan tutor hebat guna menambah wawasan siswa di luar jam sekolah.</p>
                     </div>
                     <div class="content">
-                        <img src="assets/img/petik.png" alt="icon" class="float">
+                        <img src="<?= BASEURL ?>/img/petik.png" alt="icon" class="float">
                         <p class="text-muted">Tutorin Aja! memberikan kemudahan siswa untuk mengakses informasi mengenai tutor dan mata pelajaran yang ingin dikuasai.</p>
                     </div>
                 </div>
@@ -97,7 +92,7 @@
                     <div class="row mt-4">
                         <div class="col-md-3 col-sm-12 mb-3">
                             <div class="card text-center shadow p-3 mb-5 bg-white rounded">
-                                <img src="assets/img/step1.png" class="card-img-top mt-2" alt="...">
+                                <img src="<?= BASEURL ?>/img/step1.png" class="card-img-top mt-2" alt="...">
                                 <div class="card-body">
                                     <div class="card-title text">
                                         <h4>DAFTAR</h4>
@@ -109,7 +104,7 @@
 
                         <div class="col-md-3 col-sm-6 mb-3">
                             <div class="card text-center shadow p-3 mb-5 bg-white rounded">
-                                <img src="assets/img/step2.png" class="card-img-top mt-2" alt="...">
+                                <img src="<?= BASEURL ?>/img/step2.png" class="card-img-top mt-2" alt="...">
                                 <div class="card-body">
                                     <div class="card-title">
                                         <h4>CARI TUTOR</h4>
@@ -121,7 +116,7 @@
 
                         <div class="col-md-3 col-sm-6 mb-3 ">
                             <div class="card text-center shadow p-3 mb-5 bg-white rounded">
-                                <img src="assets/img/step3.png" class="card-img-top mt-2" alt="...">
+                                <img src="<?= BASEURL ?>/img/step3.png" class="card-img-top mt-2" alt="...">
                                 <div class="card-body">
                                     <div class="card-title">
                                         <h4>RESERVASI</h4>
@@ -133,7 +128,7 @@
 
                         <div class="col-md-3 col-sm-6 mb-3">
                             <div class="card text-center shadow p-3 mb-5 bg-white rounded">
-                                <img src="assets/img/step4.png" class="card-img-top mt-2" alt="...">
+                                <img src="<?= BASEURL ?>/img/step4.png" class="card-img-top mt-2" alt="...">
                                 <div class="card-body">
                                     <div class="card-title">
                                         <h4>KONFIRMASI</h4>
@@ -190,8 +185,8 @@
     </footer>
     <!--end footer-->
 
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap.bundle.js"></script>
+    <script src="<?= BASEURL ?>/js/jquery.js"></script>
+    <script src="<?= BASEURL ?>/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>
