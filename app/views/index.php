@@ -31,14 +31,10 @@
                             MASUK
                         </a>
                     </li>
-                    <li class="nav-item ml-2 dropdown">
-                        <a class="nav-link text-white dropdown-toggle" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item ml-2">
+                        <a class="nav-link text-white" role="button" href="auth/daftar">
                             DAFTAR
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="daftar_tutor.php">Daftar sebagai Tutor</a>
-                            <a class="dropdown-item" href="daftar_siswa.php">Daftar sebagai Siswa</a>
-                        </div>
                     </li>
                 </ul>
             </div>

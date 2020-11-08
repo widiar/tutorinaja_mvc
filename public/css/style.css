@@ -74,13 +74,13 @@
   margin-top: 130px;
 }
 
-.card img {
+/* .card img {
   width: 100px;
   padding-top: 30px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
+} */
 .grid {
   padding-top: 30px;
 }
@@ -248,3 +248,30 @@
   }
 }
 /*end footer*/
+
+.text-gray-900 {
+  color: #3a3b45 !important;
+}
+
+form.user .custom-checkbox.small label {
+  line-height: 1.5rem;
+}
+
+form.user .form-control-user {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 1.5rem 1rem;
+}
+
+form.user .btn-user {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 0.75rem 1rem;
+}
+.bg-login-image {
+  background: url("../img/video_tutorial_.png");
+  width: 300px;
+  height: 300px;
+  background-position: center;
+  background-size: cover;
+}
