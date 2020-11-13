@@ -11,7 +11,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Silahkan Daftar</h1>
                                 </div>
-                                <form class="user">
+                                <form class="user" action="sukdaftar" method="post">
                                     <div class="form-group">
                                         <input type="text" name="nama" class="form-control form-control-user" placeholder="Masukkan Nama Lengkap...">
                                     </div>
@@ -29,14 +29,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            <a href="<?= BASEURL ?>" class="btn btn-primary btn-user btn-block">
+                                            <button type="submit" name="tutor" class="btn btn-primary btn-user btn-block">
                                                 Daftar Sebagai Tutor
-                                            </a>
+                                            </button>
                                         </div>
                                         <div class="col">
-                                            <a href="<?= BASEURL ?>" class="btn btn-success btn-user btn-block">
+                                            <button type="submit" name="siswa" class="btn btn-success btn-user btn-block">
                                                 Daftar Sebagai Siswa
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </form>

@@ -11,16 +11,16 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Silahkan Login</h1>
                                 </div>
-                                <form class="user">
+                                <form class="user" action="masuk" method="post">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Masukkan Username...">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user" placeholder="Masukkan Password...">
                                     </div>
-                                    <a href="<?= BASEURL ?>" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit" name="login" class="btn btn-primary btn-user btn-block">
                                         Login
-                                    </a>
+                                    </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
