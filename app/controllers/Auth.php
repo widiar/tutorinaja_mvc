@@ -25,6 +25,9 @@ class Auth extends Controller
         if (isset($_POST['siswa'])) {
             $this->model('Murid_model')->tambahmurid($_POST);
             header('Location: ' . BASEURL . 'auth/daftar');
+        } else if (isset($_POST['tutro'])) {
+            $this->model('TutorModel')->daftartutor($_POST);
+            // head
         }
     }
     public function masuk()
