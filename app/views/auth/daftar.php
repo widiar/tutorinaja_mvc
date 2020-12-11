@@ -21,51 +21,61 @@
                                 </div>
                                 <form class="user" id="user" action="sukdaftar" method="post">
                                     <div class="form-group">
-                                        <input type="text" name="nama" id="daftarNama" class="form-control form-control-user <?php if (isset($_SESSION['errNama'])) echo 'is-invalid'; ?>" placeholder="Masukkan Nama Lengkap..." value="<?php if (isset($_SESSION['valNama'])) echo $_SESSION['valNama'];
-                                                                                                                                                                                                                                            unset($_SESSION['valNama']); ?>">
-                                        <?php if (isset($_SESSION['errNama'])) : ?>
+                                        <input type="text" name="nama" id="daftarNama" class="form-control form-control-user <?php if (isset($_SESSION['errornama'])) echo 'is-invalid'; ?>" placeholder="Masukkan Nama Lengkap..." value="<?php if (isset($_SESSION['valnama'])) echo $_SESSION['valnama'];
+                                                                                                                                                                                                                                            unset($_SESSION['valnama']); ?>">
+                                        <?php if (isset($_SESSION['errornama'])) : ?>
                                             <div class="ml-3 invalid-feedback">
-                                                <?= $_SESSION['errNama'] ?>
+                                                <?= $_SESSION['errornama'] ?>
                                             </div>
-                                        <?php unset($_SESSION['errNama']);
+                                        <?php unset($_SESSION['errornama']);
                                         endif; ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="notlp" class="form-control form-control-user <?php if (isset($_SESSION['errNotlp'])) echo 'is-invalid'; ?>" placeholder="Masukkan No Telpon..." value="<?php if (isset($_SESSION['valNotlp'])) echo $_SESSION['valNotlp'];
-                                                                                                                                                                                                                        unset($_SESSION['valNotlp']); ?>">
-                                        <?php if (isset($_SESSION['errNotlp'])) : ?>
+                                        <input type="text" name="notlp" class="form-control form-control-user <?php if (isset($_SESSION['errornotlp'])) echo 'is-invalid'; ?>" placeholder="Masukkan No Telpon..." value="<?php if (isset($_SESSION['valnotlp'])) echo $_SESSION['valnotlp'];
+                                                                                                                                                                                                                            unset($_SESSION['valnotlp']); ?>">
+                                        <?php if (isset($_SESSION['errornotlp'])) : ?>
                                             <div class="ml-3 invalid-feedback">
-                                                <?= $_SESSION['errNotlp'] ?>
+                                                <?= $_SESSION['errornotlp'] ?>
                                             </div>
-                                        <?php unset($_SESSION['errNotlp']);
+                                        <?php unset($_SESSION['errornotlp']);
                                         endif; ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="email" class="form-control form-control-user <?php if (isset($_SESSION['errEmail'])) echo 'is-invalid'; ?>" placeholder="Masukkan Email..." value="<?php if (isset($_SESSION['valEmail'])) echo $_SESSION['valEmail'];
-                                                                                                                                                                                                                    unset($_SESSION['valEmail']); ?>">
-                                        <?php if (isset($_SESSION['errEmail'])) : ?>
+                                        <input type="text" name="username" class="form-control form-control-user <?php if (isset($_SESSION['errorusername'])) echo 'is-invalid'; ?>" placeholder="Masukkan Username..." value="<?php if (isset($_SESSION['valusername'])) echo $_SESSION['valusername'];
+                                                                                                                                                                                                                                unset($_SESSION['valusername']); ?>">
+                                        <?php if (isset($_SESSION['errorusername'])) : ?>
                                             <div class="ml-3 invalid-feedback">
-                                                <?= $_SESSION['errEmail'] ?>
+                                                <?= $_SESSION['errorusername'] ?>
                                             </div>
-                                        <?php unset($_SESSION['errEmail']);
+                                        <?php unset($_SESSION['errorusername']);
                                         endif; ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" id="pass" name="password" class="form-control form-control-user <?php if (isset($_SESSION['errPassword'])) echo 'is-invalid'; ?>" placeholder="Masukkan Password...">
-                                        <?php if (isset($_SESSION['errPassword'])) : ?>
+                                        <input type="text" name="email" class="form-control form-control-user <?php if (isset($_SESSION['erroremail'])) echo 'is-invalid'; ?>" placeholder="Masukkan Email..." value="<?php if (isset($_SESSION['valemail'])) echo $_SESSION['valemail'];
+                                                                                                                                                                                                                        unset($_SESSION['valemail']); ?>">
+                                        <?php if (isset($_SESSION['erroremail'])) : ?>
                                             <div class="ml-3 invalid-feedback">
-                                                <?= $_SESSION['errPassword'] ?>
+                                                <?= $_SESSION['erroremail'] ?>
                                             </div>
-                                        <?php unset($_SESSION['errPassword']);
+                                        <?php unset($_SESSION['erroremail']);
                                         endif; ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" id="pass2" name="password2" class="form-control form-control-user <?php if (isset($_SESSION['errPassword2'])) echo 'is-invalid'; ?>" placeholder="Konfirmasi Password...">
-                                        <?php if (isset($_SESSION['errPassword2'])) : ?>
+                                        <input type="password" id="pass" name="password" class="form-control form-control-user <?php if (isset($_SESSION['errorpassword'])) echo 'is-invalid'; ?>" placeholder="Masukkan Password...">
+                                        <?php if (isset($_SESSION['errorpassword'])) : ?>
                                             <div class="ml-3 invalid-feedback">
-                                                <?= $_SESSION['errPassword2'] ?>
+                                                <?= $_SESSION['errorpassword'] ?>
                                             </div>
-                                        <?php unset($_SESSION['errPassword2']);
+                                        <?php unset($_SESSION['errorpassword']);
+                                        endif; ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="pass2" name="password2" class="form-control form-control-user <?php if (isset($_SESSION['errorpassword2'])) echo 'is-invalid'; ?>" placeholder="Konfirmasi Password...">
+                                        <?php if (isset($_SESSION['errorpassword2'])) : ?>
+                                            <div class="ml-3 invalid-feedback">
+                                                <?= $_SESSION['errorpassword2'] ?>
+                                            </div>
+                                        <?php unset($_SESSION['errorpassword2']);
                                         endif; ?>
                                     </div>
                                     <div class="row">
