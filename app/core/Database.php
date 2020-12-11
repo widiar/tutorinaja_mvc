@@ -30,7 +30,10 @@ class Database
 
     public function execute()
     {
-        $this->stmt->execute();
+        if ($this->stmt->execute())
+            return 1;
+        else
+            return $this->stmt->error;
     }
 
     public function result($sql)
@@ -44,8 +47,4 @@ class Database
         $hasil = $this->db->query($sql);
         return $hasil->fetch_assoc();
     }
-    // public function rowCount()
-    // {
-    //     return $this->db->affected_rows();
-    // }
 }
