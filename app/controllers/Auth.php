@@ -25,13 +25,21 @@ class Auth extends Controller
     {
         $error = false;
         foreach ($rules as $name => $isinya) {
-            $data[$name] = amankan($data[$name]);
+            if (!isset($data[$name]['name']))
+                $data[$name] = amankan($data[$name]);
             $isi = explode("|", $isinya);
             foreach ($isi as $ini) {
                 if (strcmp($ini, 'required') == 0) {
-                    if (empty($data[$name])) {
-                        $_SESSION['error' . $name] = $name . " harus di isi";
-                        $error = true;
+                    if (isset($data[$name]['name'])) {
+                        if (empty($data[$name]['name'])) {
+                            $_SESSION['error' . $name] = $name .  " harus di isi";
+                            $error = true;
+                        }
+                    } else {
+                        if (empty($data[$name])) {
+                            $_SESSION['error' . $name] = $name . " harus di isi";
+                            $error = true;
+                        }
                     }
                 } else if (strcmp($ini, 'satukata') == 0) {
                     $tmp = explode(" ", $data[$name]);
@@ -50,10 +58,23 @@ class Auth extends Controller
                         $_SESSION['error' . $name] = $name . " dan " . $tmp[1] . " harus sama";
                         $error = true;
                     }
+                } else if (strcmp($ini, 'image') == 0) {
+                    if (getimagesize($data[$name]['tmp_name']) === false) {
+                        $_SESSION['error' . $name] = $name .  " haruslah sebuah image";
+                        $error = true;
+                    }
+                } else if (strpos($ini, 'tipefile') !== false) {
+                    $tmp = explode(":", $ini);
+                    $tipenya = explode(",", $tmp[1]);
+                    $ekstensinya = strtolower(pathinfo($data[$name]['name'], PATHINFO_EXTENSION));
+                    if (!in_array($ekstensinya, $tipenya)) {
+                        if (!isset($_SESSION['error' . $name])) $_SESSION['error' . $name] = $name .  " ekstensinya tidak sesuai";
+                        $error = true;
+                    }
                 }
             }
-            if ($error) $_SESSION['val' . $name] = $data[$name];
         }
+        foreach ($rules as $name => $isi) if ($error) $_SESSION['val' . $name] = $data[$name];
         return $error;
     }
     public function sukdaftar()
@@ -102,11 +123,18 @@ class Auth extends Controller
             $data = $this->model('Auth_model')->maumasuk($username);
             if ($data) {
                 if (password_verify($password, $data['password'])) {
-                    if ($data['role'] == 2) { //tutor
-                        if ($data['profileLengkap'] <= 2) {
-                            $_SESSION['username'] = $username;
+                    $_SESSION['username'] = $username;
+                    $_SESSION['role'] = $data['role'];
+                    if ($data['role'] == 1) { //admin
+                        header('Location: ' . BASEURL . 'admin/dashboard');
+                        die;
+                    } else if ($data['role'] == 2) { //tutor
+                        if ($data['profileLengkap'] <= 3) {
                             $_SESSION['ceklengkap'] = $data['profileLengkap'];
                             header('Location: ' . BASEURL . 'auth/tutor');
+                            die;
+                        } else {
+                            header('Location: ' . BASEURL . 'tutor/dashboard');
                             die;
                         }
                     }
@@ -118,6 +146,10 @@ class Auth extends Controller
     public function tutor()
     {
         if (isset($_SESSION['username'])) {
+            if ($_SESSION['ceklengkap'] == 3) {
+                header('Location:' . BASEURL . 'tutor/dashboard');
+                die;
+            }
             $data['user'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'tutor');
             $data['provinsi'] = $this->model('AlamatModel')->ambilprovinsi();
             $this->view('profile/tutor', $data);
@@ -128,25 +160,81 @@ class Auth extends Controller
     public function sukdatatutor()
     {
         if (isset($_POST['kirim'])) {
-            $rules = [
-                'nama' => 'required',
-                'namapanggilan' => 'required',
-                'jeniskelamin' => 'required',
-                'notlp' => 'required',
-                'tempatlahir' => 'required',
-                'tanggallahir' => 'required',
-                'provinsi' => 'required',
-                'kabupaten' => 'required',
-                'kecamatan' => 'required',
-                'kelurahan' => 'required',
-                'alamat' => 'required',
-            ];
-            // var_dump($_POST['jeniskelamin']);
-            // die;
-            if ($this->validation($_POST, $rules)) {
-                header('Location: ' . BASEURL . 'auth/tutor');
-                die;
+            $cek = $_SESSION['ceklengkap'];
+            $user = $_SESSION['username'];
+            if ($cek == 0) {
+                $rules = [
+                    'nama' => 'required',
+                    'namapanggilan' => 'required',
+                    'jeniskelamin' => 'required',
+                    'notlp' => 'required',
+                    'tempatlahir' => 'required',
+                    'tanggallahir' => 'required',
+                    'alamat' => 'required',
+                ];
+                if ($this->validation($_POST, $rules)) {
+                    header('Location: ' . BASEURL . 'auth/tutor');
+                    die;
+                }
+                if ($this->model('Auth_model')->updatetutorsatu($_POST, $user) == 1) {
+                    $_SESSION['ceklengkap'] = 1;
+                    $_SESSION['sukses'] = "Berhasil menambah data";
+                } else $_SESSION['sukses'] = "Terdapat kesalahan";
+            } else if ($cek == 1) {
+                $_POST['foto'] = $_FILES['foto'];
+                $_POST['ijasah'] = $_FILES['ijasah'];
+                $rules = [
+                    'pendidikan_terakhir' => 'required',
+                    'keterangan_pendidikan' => 'required',
+                    'perguruan_tinggi' => 'required',
+                    'program_studi' => 'required',
+                    'IPK' => 'required',
+                    'foto' => 'required|image|tipefile:jpg,jpeg,png',
+                    'ijasah' => 'required|tipefile:pdf,jpg',
+                ];
+                if ($this->validation($_POST, $rules)) {
+                    header('Location: ' . BASEURL . 'auth/tutor');
+                    die;
+                }
+                $cek = $this->model('Auth_model')->updatetutordua($_POST, $user);
+                if ($cek == 1) {
+                    $_SESSION['ceklengkap'] = 2;
+                    $_SESSION['sukses'] = "Berhasil menambah data";
+                } else $_SESSION['sukses'] = "Terdapat kesalahan " . $cek;
+            } else if ($cek == 2) {
+                $rules = [
+                    'perkenalan' => 'required',
+                    'pengalaman' => 'required',
+                    'prestasi' => 'required',
+                    'biaya90menit' => 'required',
+                    'biaya120menit' => 'required',
+                    'metode_mengajar' => 'required',
+                    'minatngajar' => 'required',
+                    'minatmapel' => 'required',
+                ];
+                $minat = "";
+                if (isset($_POST['minatngajar'])) {
+                    foreach ($_POST['minatngajar'] as $minatngajar) $minat .= $minatngajar . ",";
+                    $minat = rtrim($minat, ",");
+                }
+                $_POST['minatngajar'] = $minat;
+                $mapel = "";
+                if (isset($_POST['minatmapel'])) {
+                    foreach ($_POST['minatmapel'] as $minatmapel)  $mapel .= $minatmapel . ",";
+                    $mapel = rtrim($mapel, ",");
+                }
+                $_POST['minatmapel'] = $mapel;
+                if ($this->validation($_POST, $rules)) {
+                    header('Location: ' . BASEURL . 'auth/tutor');
+                    die;
+                }
+                $cek = $this->model('Auth_model')->updatetutortiga($_POST, $user);
+                if ($cek == 1) {
+                    $_SESSION['ceklengkap'] = 3;
+                    $_SESSION['sukses'] = "Berhasil menambah data";
+                } else $_SESSION['sukses'] = "Terdapat kesalahan " . $cek;
             }
+            header('Location: ' . BASEURL . 'auth/tutor');
         }
     }
     public function logout()

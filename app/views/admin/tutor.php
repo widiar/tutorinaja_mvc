@@ -9,7 +9,7 @@
                 <th scope="col">Perguruan Tinggi</th>
                 <th scope="col">Program Studi</th>
                 <th scope="col">Foto</th>
-                <th scope="col">File Ijazah/Transkrip Nilai</th>
+                <th scope="col">File Ijazah</th>
                 <th scope="col">Detail</th>
                 <th scope="col">Status</th>
                 <th scope="col">Bukti Pembayaran</th>
@@ -17,33 +17,77 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Ananda</td>
-                <td>Universitas Udayana</td>
-                <td>Biologi</td>
-                <td><u class="text-info">image1.jpg</u></td>
-                <td><u class="text-info">transkrip.pdf</u></td>
-                <td><a class="btn btn-secondary btn-sm" href="#" role="button" data-toggle="modal" data-target="#profiltutor">Lihat</a></td>
-                <td><button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button></td>
-                <td><u class="text-info">bayar.jpg</u></td>
-                <td><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button></td>
-
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Universitas Udayana</td>
-                <td>Matematika</td>
-                <td><u class="text-info">image2.jpg</u></td>
-                <td><u class="text-info">transkrip.pdf</u></td>
-                <td><a class="btn btn-secondary btn-sm" href="#" role="button" data-toggle="modal" data-target="#profiltutor">Lihat</a></td>
-                <td><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button></td>
-                <td>-</td>
-                <td><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button></td>
-            </tr>
+            <?php $no = 1;
+            foreach ($data['tutor'] as $tutor) : ?>
+                <tr>
+                    <th><?= $no++ ?></th>
+                    <td><?= $tutor['nama'] ?></td>
+                    <td><?= $tutor['perguruan_tinggi'] ?></td>
+                    <td><?= $tutor['prodi'] ?></td>
+                    <td class="text-center">
+                        <a href="fototutor/<?= $tutor['id'] ?>" class="liatfototutor">
+                            <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></button>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="ijasahtutor/<?= $tutor['id_riwayat'] ?>" class="liatijasahtutor">
+                            <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i></button>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a class="liatdetailtutor" href="detailtutor/<?= $tutor['id'] ?>">
+                            <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></button>
+                        </a>
+                    </td>
+                    <td>
+                        <?php if ($tutor['profileLengkap'] == 4) : ?>
+                            <?php if ($tutor['verif'] == 0) : ?>
+                                <span class="badge badge-warning">Not Verifed</span>
+                            <?php else : ?>
+                                <span class="badge badge-success">Verifed</span>
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <span class="badge badge-danger">Data Belum Lengkap</span>
+                        <?php endif; ?>
+                    </td>
+                    <td><u class="text-info">bayar.jpg</u></td>
+                    <td><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button></td>
+                </tr>
+            <?php endforeach; ?>
 
         </tbody>
     </table>
+    <div class="modal fade" id="fotoijasahtutor" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body isinyat text-center">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="detailtutor" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Profil Tutor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body isidetailtutor">
+                </div>
+                <div class="modal-footer tomboldetailtutor">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

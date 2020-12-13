@@ -47,4 +47,14 @@ class Database
         $hasil = $this->db->query($sql);
         return $hasil->fetch_assoc();
     }
+
+    public function queryexecute($sql)
+    {
+        if ($this->db->query($sql)) return 1;
+        else return 0;
+    }
+    public function close()
+    {
+        $this->db->close();
+    }
 }
