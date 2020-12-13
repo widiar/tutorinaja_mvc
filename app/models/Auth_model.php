@@ -155,4 +155,64 @@ class Auth_model
         $sql = "UPDATE user SET $kolom='$data' WHERE username='$user'";
         if ($this->db->queryexecute($sql) == 1) return 1;
     }
+    public function updatesiswasatu($data, $username)
+    {
+        $nama = amankan($data['nama']);
+        $namapanggilan = amankan($data['namapanggilan']);
+        $jeniskelamin = amankan($data['jeniskelamin']);
+        $notlp = amankan($data['notlp']);
+        $tempatlahir = amankan($data['tempatlahir']);
+        $tanggallahir = amankan($data['tanggallahir']);
+        $jenjangpendidikan = amankan($data['jenjangpendidikan']);
+        $asalsekolah = amankan($data['asalsekolah']);
+        $sql = "UPDATE siswa SET nama=?, namapanggilan=?, jk=?, tempatlahir=?, tanggallahir=?, jenjangpendidikan=?, asalsekolah=?, notlp=? WHERE username='$username'";
+        $this->db->query($sql);
+        $param = 'ssssssss';
+        $values = [
+            $nama, $namapanggilan, $jeniskelamin, $tempatlahir, $tanggallahir, $jenjangpendidikan, $asalsekolah, $notlp,
+        ];
+        $this->db->bind($param, $values);
+        if ($this->db->execute() == 1) {
+            $sql = "UPDATE user SET profileLengkap=1 WHERE username='$username'";
+            $ceklg = $this->db->queryexecute($sql);
+            if ($ceklg == 1) return 1;
+        }
+    }
+    public function updatesiswadua($data, $username)
+    {
+        $siswa = $this->db->single("SELECT * FROM siswa WHERE username='$username'");
+        $namaortu = amankan($data['namaortu']);
+        $notlportu = amankan($data['notlportu']);
+        $provinsi = amankan($data['provinsi']);
+        $kabupaten = amankan($data['kabupaten']);
+        $kecamatan = amankan($data['kecamatan']);
+        $kelurahan = amankan($data['kelurahan']);
+        $alamat = amankan($data['kelurahan']);
+        $ekstensifoto = pathinfo($data['foto']['name'], PATHINFO_EXTENSION);
+        $namefoto = uniqid(1) . "." . $ekstensifoto;
+        $dirfoto = "../public/siswa/foto/";
+        $sql = "INSERT INTO orangtuasiswa (id_siswa, nama_ortu, notlp_ortu) VALUES (?,?,?)";
+        $this->db->query($sql);
+        $param = 'iss';
+        $values = [$siswa['id'], $namaortu, $notlportu];
+        $this->db->bind($param, $values);
+        if ($this->db->execute() == 1) {
+            $ids = $siswa['id'];
+            $ido = $this->db->single("SELECT id_ortu FROM orangtuasiswa WHERE id_siswa='$ids'");
+            $sql = "UPDATE siswa SET id_ortu=?, provinsi=?, kabupaten=?, kecamatan=?, kelurahan=?, alamat=?, foto=? WHERE id='$ids'";
+            $this->db->query($sql);
+            $param = 'issssss';
+            $values = [
+                $ido, $provinsi, $kabupaten, $kecamatan, $kelurahan, $alamat, $namefoto,
+            ];
+            $this->db->bind($param, $values);
+            if ($this->db->execute() == 1) {
+                if (move_uploaded_file($data['foto']['tmp_name'], $dirfoto . $namefoto)) {
+                    $sql = "UPDATE user SET profileLengkap=2 WHERE username='$username'";
+                    $ceklg = $this->db->queryexecute($sql);
+                    if ($ceklg == 1) return 1;
+                }
+            }
+        }
+    }
 }

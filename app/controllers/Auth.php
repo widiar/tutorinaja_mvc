@@ -137,6 +137,15 @@ class Auth extends Controller
                             header('Location: ' . BASEURL . 'tutor/dashboard');
                             die;
                         }
+                    } else if ($data['role'] == 3) { //siswa
+                        if ($data['profileLengkap'] <= 2) {
+                            $_SESSION['ceklengkap'] = $data['profileLengkap'];
+                            header("Location: " . BASEURL . "auth/siswa");
+                            die;
+                        } else {
+                            header('Location: ' . BASEURL . 'siswa/dashboard');
+                            die;
+                        }
                     }
                 } else $_SESSION['gagal'] = "Password anda salah";
             } else $_SESSION['gagal'] = "Username belum terdaftar";
@@ -153,6 +162,20 @@ class Auth extends Controller
             $data['user'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'tutor');
             $data['provinsi'] = $this->model('AlamatModel')->ambilprovinsi();
             $this->view('profile/tutor', $data);
+        } else {
+            header('Location:' . BASEURL . 'auth/login');
+        }
+    }
+    public function siswa()
+    {
+        if (isset($_SESSION['username'])) {
+            if ($_SESSION['ceklengkap'] == 2) {
+                header('Location:' . BASEURL . 'siswa/dashboard');
+                die;
+            }
+            $data['user'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
+            $data['provinsi'] = $this->model('AlamatModel')->ambilprovinsi();
+            $this->view('profile/siswa', $data);
         } else {
             header('Location:' . BASEURL . 'auth/login');
         }
@@ -196,8 +219,8 @@ class Auth extends Controller
                     header('Location: ' . BASEURL . 'auth/tutor');
                     die;
                 }
-                $cek = $this->model('Auth_model')->updatetutordua($_POST, $user);
-                if ($cek == 1) {
+                $cekdeh = $this->model('Auth_model')->updatetutordua($_POST, $user);
+                if ($cekdeh == 1) {
                     $_SESSION['ceklengkap'] = 2;
                     $_SESSION['sukses'] = "Berhasil menambah data";
                 } else $_SESSION['sukses'] = "Terdapat kesalahan " . $cek;
@@ -228,14 +251,58 @@ class Auth extends Controller
                     header('Location: ' . BASEURL . 'auth/tutor');
                     die;
                 }
-                $cek = $this->model('Auth_model')->updatetutortiga($_POST, $user);
-                if ($cek == 1) {
+                $cekdeh = $this->model('Auth_model')->updatetutortiga($_POST, $user);
+                if ($cekdeh == 1) {
                     $_SESSION['ceklengkap'] = 3;
                     $_SESSION['sukses'] = "Berhasil menambah data";
                 } else $_SESSION['sukses'] = "Terdapat kesalahan " . $cek;
             }
             header('Location: ' . BASEURL . 'auth/tutor');
         }
+    }
+    public function sukdatasiswa()
+    {
+        if (isset($_POST['masukan'])) {
+            $username = $_SESSION['username'];
+            $kelengkapan = $_SESSION['ceklengkap'];
+            if ($kelengkapan == 0) {
+                $rules = [
+                    'nama' => 'required',
+                    'namapanggilan' => 'required',
+                    'jeniskelamin' => 'required',
+                    'notlp' => 'required',
+                    'tempatlahir' => 'required',
+                    'tanggallahir' => 'required',
+                    'jenjangpendidikan' => 'required',
+                    'asalsekolah' => 'required',
+                ];
+                if ($this->validation($_POST, $rules)) {
+                    header('Location: ' . BASEURL . 'auth/siswa');
+                    die;
+                }
+                if ($this->model('Auth_model')->updatesiswasatu($_POST, $username) == 1) {
+                    $_SESSION['ceklengkap'] = 1;
+                    $_SESSION['sukses'] = "Berhasil menambah data";
+                } else $_SESSION['sukses'] = "Terdapat kesalahan";
+            } elseif ($kelengkapan == 1) {
+                $_POST['foto'] = $_FILES['foto'];
+                $rules = [
+                    'namaortu' => 'required',
+                    'notlportu' => 'required',
+                    'alamat' => 'required',
+                    'foto' => 'required|image|tipefile:jpg,jpeg,png',
+                ];
+                if ($this->validation($_POST, $rules)) {
+                    header('Location: ' . BASEURL . 'auth/siswa');
+                    die;
+                }
+                if ($this->model('Auth_model')->updatesiswadua($_POST, $username) == 1) {
+                    $_SESSION['ceklengkap'] = 2;
+                    $_SESSION['sukses'] = "Berhasil menambah data";
+                } else $_SESSION['sukses'] = "Terdapat kesalahan";
+            }
+        }
+        header('Location: ' . BASEURL . 'auth/siswa');
     }
     public function logout()
     {

@@ -20,6 +20,18 @@ $(document).ready(function(){
             }
         });
         $("#detailtutor").modal('show');
+    });
+    $(".detailtutor").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('href'),
+            dataType: 'json',
+            success: function(string){
+                $(".isiprofile").html(string[0]);
+                $(".isibawah").html(string[1]);
+            }
+        });
+        $("#modalprofilTutor").modal('show');
     })
 })
 
