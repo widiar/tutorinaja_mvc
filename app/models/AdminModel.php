@@ -32,4 +32,9 @@ class AdminModel
         $sql = "UPDATE user SET verif=$data WHERE username='$user'";
         if ($this->db->queryexecute($sql) == 1) return 1;
     }
+    public function ambildatasiswa()
+    {
+        $sql = "SELECT * FROM siswa JOIN orangtuasiswa ON siswa.id=orangtuasiswa.id_siswa";
+        return $this->db->result($sql);
+    }
 }

@@ -24,33 +24,11 @@
             <div class="collapse navbar-collapse" id="navbarNav"></div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ml-2">
-                    <a class="nav-link text-white" href="#" role="button" data-toggle="modal" data-target="#logout">LOGOUT<i class="fas fa-sign-out-alt ml-2"></i></a>
+                    <a class="nav-link text-white logout" href="../auth/logout">LOGOUT<i class="fas fa-sign-out-alt ml-2"></i></a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="modal fade" id="logout" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">LOGOUT</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <p>Apakah Anda yakin ingin logout ?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">TIDAK</button>
-                    <a href="<?= BASEURL ?>"><button type="button" class="btn btn-primary">YA</button></a>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!--end navbar-->
 
     <div class="row no-gutters mt-5">
         <!--bagian sisi kiri-->

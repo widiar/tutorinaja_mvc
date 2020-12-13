@@ -113,8 +113,8 @@ class Auth_model
         // var_dump($values);
         // die;
         $this->db->bind($params, $values);
-        $dirijasah = "../public/tutor/ijasah/";
-        $dirfoto = "../public/tutor/foto/";
+        $dirijasah = "../public/asset/tutor/ijasah/";
+        $dirfoto = "../public/asset/tutor/foto/";
         $cekdeh = $this->db->execute();
         if ($cekdeh == 1) {
             move_uploaded_file($data['ijasah']['tmp_name'], $dirijasah . $namaijasah);
@@ -190,7 +190,7 @@ class Auth_model
         $alamat = amankan($data['kelurahan']);
         $ekstensifoto = pathinfo($data['foto']['name'], PATHINFO_EXTENSION);
         $namefoto = uniqid(1) . "." . $ekstensifoto;
-        $dirfoto = "../public/siswa/foto/";
+        $dirfoto = "../public/asset/siswa/foto/";
         $sql = "INSERT INTO orangtuasiswa (id_siswa, nama_ortu, notlp_ortu) VALUES (?,?,?)";
         $this->db->query($sql);
         $param = 'iss';

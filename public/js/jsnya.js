@@ -9,6 +9,16 @@ $(document).ready(function(){
         });
         $("#fotoijasahtutor").modal('show');
     });
+    $(".profilsiswa").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('href'),
+            success: function(data){
+                $(".isiprofilsiswa").html(data);
+            }
+        });
+        $("#profilesiswa").modal('show');
+    });
     $(".liatdetailtutor").click(function(e){
         e.preventDefault();
         $.ajax({
@@ -32,7 +42,21 @@ $(document).ready(function(){
             }
         });
         $("#modalprofilTutor").modal('show');
+    });
+    $(".logout").click(function(e){
+        e.preventDefault();
+        Swal.fire({
+            title: 'Logout',
+            text: 'Anda yakin ingin logout?',
+            icon: 'question',
+            showCancelButton: true,
+        }).then((result) => {
+            if(result.isConfirmed) {
+                window.location.href = $(this).attr('href');
+            }
+        })
     })
+    
 })
 
 function veriftutor()
@@ -49,7 +73,7 @@ function veriftutor()
             confirmButtonText: 'Ya, Yakin dong!',
             cancelButtonText: 'Ga, jangan deh',
             }).then((result) => {
-                if (result) {
+                if (result.isConfirmed) {
                     $.ajax({
                         url: $(this).attr("href"),
                         dataType: 'html',

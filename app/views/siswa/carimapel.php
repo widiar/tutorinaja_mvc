@@ -13,7 +13,7 @@
             <div class="mx-auto d-block">
                 <form action="carimapel" method="post">
                     <div class="input-group" style="width: 600px;">
-                        <input type="text" name="mapel" placeholder="Cari Mata Pelajaran" class="form-control">
+                        <input type="text" name="mapel" placeholder="Cari Mata Pelajaran" class="form-control" value="<?= $_POST['mapel'] ?>">
                         <div class="input-group-append">
                             <button type="submit" name="cari" class="btn btn-link"><i class="fas fa-search"></i></button>
                         </div>
@@ -51,20 +51,22 @@
             <div class="grid">
                 <div class="row mt-4">
                     <?php foreach ($data['tutor'] as $tutor) : ?>
-                        <div class="col-md-3 col-sm-12 mb-3">
-                            <div class="card shadow p-3 mb-5 bg-white rounded">
-                                <img src="<?= BASEURL ?>asset/tutor/foto/<?= $tutor['foto'] ?>" class="card-img-top">
-                                <div class="card-body ">
-                                    <div class="card-title text">
-                                        <h4><?= $tutor['nama'] ?></h4>
+                        <?php if (strpos($tutor['minatmapel'], $_POST['mapel']) !== false) : ?>
+                            <div class="col-md-3 col-sm-12 mb-3">
+                                <div class="card shadow p-3 mb-5 bg-white rounded">
+                                    <img src="<?= BASEURL ?>asset/tutor/foto/<?= $tutor['foto'] ?>" class="card-img-top">
+                                    <div class="card-body ">
+                                        <div class="card-title text">
+                                            <h4><?= $tutor['nama'] ?></h4>
+                                        </div>
+                                        <?= $tutor['perkenalan'] ?>
+                                        <a href="detailtutor/<?= $tutor['id'] ?>/ds" class="detailtutor">
+                                            <p class="card-text text-info">Lihat Detail <i class="fas fa-angle-double-right ml-2"></i></p>
+                                        </a>
                                     </div>
-                                    <?= $tutor['perkenalan'] ?>
-                                    <a href="detailtutor/<?= $tutor['id'] ?>/ds" class="detailtutor">
-                                        <p class="card-text text-info">Lihat Detail <i class="fas fa-angle-double-right ml-2"></i></p>
-                                    </a>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     <?php endforeach; ?>
 
                 </div>

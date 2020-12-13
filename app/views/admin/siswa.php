@@ -7,42 +7,48 @@
                 <th scope="col">No.</th>
                 <th scope="col">Nama siswa</th>
                 <th scope="col">Kelas</th>
-                <th scope="col">Mata Pelajaran</th>
-                <th scope="col">Durasi yang dipilih</th>
+                <th scope="col">Asal Sekolah</th>
                 <th scope="col">Alamat</th>
-                <th scope="col">Nama Tutor</th>
                 <th scope="col">Detail</th>
                 <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Indah Sari</td>
-                <td>6 SD</td>
-                <td>Matematika</td>
-                <td>120 menit</td>
-                <td>Jalan Gatot Subroto</td>
-                <td>Ananda</td>
-                <td><a class="btn btn-secondary btn-sm" href="#" role="button" data-toggle="modal" data-target="#profilsiswa">Lihat</a></td>
-                <td><button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button></td>
-
-
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Indah Sari</td>
-                <td>6 SD</td>
-                <td>Matematika</td>
-                <td>120 menit</td>
-                <td>Jalan Gatot Subroto</td>
-                <td>Ananda</td>
-                <td><a class="btn btn-secondary btn-sm" href="#" role="button" data-toggle="modal" data-target="#profilsiswa">Lihat</a></td>
-                <td><button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button></td>
-
-            </tr>
-
+            <?php $no = 1;
+            foreach ($data['siswa'] as $siswa) : ?>
+                <tr>
+                    <th><?= $no++ ?></th>
+                    <td><?= $siswa['nama'] ?></td>
+                    <td><?= $siswa['jenjangpendidikan'] ?></td>
+                    <td><?= $siswa['asalsekolah'] ?></td>
+                    <td><?= $siswa['alamat'] ?></td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-sm profilsiswa" href="detailsiswa/<?= $siswa['id'] ?>">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </td>
+                    <td class="text-center"><button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
+</div>
+<div class="modal fade" id="profilesiswa" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">PROFIL SISWA</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body isiprofilsiswa">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

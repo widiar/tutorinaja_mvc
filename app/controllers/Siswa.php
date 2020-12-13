@@ -7,6 +7,24 @@ class Siswa extends Controller
     {
         header('Location: ' . BASEURL . 'siswa/dashboard');
     }
+    public function carimapel()
+    {
+        if (isset($_POST['cari'])) {
+            $isi['tutor'] = $this->model('SiswaModel')->ambildatatutor();
+            $this->view("siswa/header");
+            $this->view("siswa/carimapel", $isi);
+            $this->view("siswa/footer");
+        }
+    }
+    public function caridaerah()
+    {
+        if (isset($_POST['cdaerah'])) {
+            $isi['tutor'] = $this->model('SiswaModel')->satututordaerah($_POST['daerah']);
+            $this->view("siswa/header");
+            $this->view("siswa/caridaerah", $isi);
+            $this->view("siswa/footer");
+        }
+    }
     public function dashboard()
     {
         if (isset($_SESSION['username'])) {
@@ -32,7 +50,7 @@ class Siswa extends Controller
             }
         } else header('Location: ' . BASEURL . 'auth/login');
     }
-    public function detailtutor($id)
+    public function detailtutor($id, $dimana)
     {
         $data = $this->model('AdminModel')->ambilsatututor($id);
         if ($data) {
@@ -40,7 +58,7 @@ class Siswa extends Controller
                 <table style="width: 980px;">
                     <tr>
                         <td rowspan="15" width="250px">
-                            <img src="' . BASEURL . 'tutor/foto/' . $data['foto'] . '" width="220px" />
+                            <img src="' . BASEURL . 'asset/tutor/foto/' . $data['foto'] . '" width="220px" />
                         </td>
                     </tr>
                     <tr>
@@ -116,11 +134,15 @@ class Siswa extends Controller
                     <p>' . $data['metodengajar'] . '</p>
                 </div>
             ';
-            $string[1] = '
-                <a href="reservasi/' . $data['username'] . '">
-                    <button" class="btn btn-primary">Reservasi</button>
-                </a>
-            ';
+            if (strcmp($dimana, 'ds') == 0)
+                $string[1] = '
+                    <a href="reservasi/' . $data['username'] . '">
+                        <button" class="btn btn-primary">Reservasi</button>
+                    </a>
+                ';
+            elseif (strcmp($dimana, 'cs') == 0) {
+                $string[1] = '<button" class="btn btn-primary">Status</button>';
+            }
             echo json_encode($string);
         }
     }
@@ -147,6 +169,82 @@ class Siswa extends Controller
                 header('Location: ' . BASEURL . 'siswa/dahsboard');
                 die;
             }
+        }
+    }
+    public function mycourse()
+    {
+        $siswa = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
+        $data = $this->model('SiswaModel')->ambilreservasi($siswa['id']);
+        $this->view('siswa/header');
+        $this->view('siswa/mycourse', $data);
+        $this->view('siswa/footer');
+    }
+
+    public function yanglogin()
+    {
+        $user = $_SESSION['username'];
+        $siswa = $this->model('SiswaModel')->ambilsatudatasiswa($user, 'username');
+        if ($siswa) {
+            $kata = '
+            <table style="width: 980px;">
+                <tr>
+                    <td rowspan="15" width="250px">
+                        <img src="' . BASEURL . 'asset/siswa/foto/' . $siswa['foto'] . '" width="200px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Nama Lengkap</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['nama'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Jenis Kelamin</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['jk'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Tempat Lahir</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['tempatlahir'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Tanggal Lahir</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['tanggallahir'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>No. Telepon</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['notlp'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Nama Orang Tua</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['nama_ortu'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>No. Telepon Orang Tua</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['notlp_ortu'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Alamat</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['alamat'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Kelas</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['jenjangpendidikan'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Sekolah</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['asalsekolah'] . '</td>
+                </tr>
+            </table>
+            ';
+            echo $kata;
         }
     }
 

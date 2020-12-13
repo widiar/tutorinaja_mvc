@@ -1,3 +1,6 @@
+html {
+  overflow-x: hidden;
+}
 .col-md-2 {
   padding-bottom: 26%;
   /* margin-bottom: -100%; */

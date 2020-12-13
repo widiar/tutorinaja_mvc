@@ -21,22 +21,23 @@ class Admin extends Controller
     }
     public function siswa()
     {
+        $data['siswa'] = $this->model('AdminModel')->ambildatasiswa();
         $this->view("admin/header");
-        $this->view("admin/siswa");
+        $this->view("admin/siswa", $data);
         $this->view("admin/footer");
     }
     public function fototutor($id)
     {
         $data = $this->model('AdminModel')->ambilsatu($id, 'tutor', 'id');
         if ($data['foto']) {
-            echo '<img src="' . BASEURL . 'tutor/foto/' . $data['foto'] . '" width="80%">';
+            echo '<img src="' . BASEURL . 'asset/tutor/foto/' . $data['foto'] . '" width="80%">';
         }
     }
     public function ijasahtutor($id)
     {
         $data = $this->model('AdminModel')->ambilsatu($id, 'riwayatpendidikan', 'id_riwayat');
         if ($data['ijasah']) {
-            echo '<iframe src="' . BASEURL . 'tutor/ijasah/' . $data['ijasah'] . '#toolbar=0" height="500px" width="100%"></iframe>';
+            echo '<iframe src="' . BASEURL . 'asset/tutor/ijasah/' . $data['ijasah'] . '#toolbar=0" height="500px" width="100%"></iframe>';
         }
     }
     public function detailtutor($id)
@@ -138,5 +139,71 @@ class Admin extends Controller
     {
         if ($this->model('AdminModel')->veriftutor($user, 0) == 1) echo "Sukses";
         else echo "Gagal";
+    }
+    public function detailsiswa($id)
+    {
+        $siswa = $this->model('SiswaModel')->ambilsatudatasiswa($id, 'id');
+        if ($siswa) {
+            $kata = '
+            <table style="width: 980px;">
+                <tr>
+                    <td rowspan="15" width="250px">
+                        <img src="' . BASEURL . 'asset/siswa/foto/' . $siswa['foto'] . '" width="200px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Nama Lengkap</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['nama'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Jenis Kelamin</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['jk'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Tempat Lahir</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['tempatlahir'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Tanggal Lahir</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['tanggallahir'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>No. Telepon</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['notlp'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Nama Orang Tua</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['nama_ortu'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>No. Telepon Orang Tua</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['notlp_ortu'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Alamat</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['alamat'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Kelas</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['jenjangpendidikan'] . '</td>
+                </tr>
+                <tr>
+                    <td><b>Sekolah</b></td>
+                    <td>:</td>
+                    <td>' . $siswa['asalsekolah'] . '</td>
+                </tr>
+            </table>
+            ';
+            echo $kata;
+        }
     }
 }

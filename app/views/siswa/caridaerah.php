@@ -27,7 +27,7 @@
             <div class="mx-auto d-block">
                 <form action="caridaerah" method="post">
                     <div class="input-group" style="width: 600px;">
-                        <input type="text" name="daerah" placeholder="Cari Wilayah" class="form-control">
+                        <input type="text" name="daerah" placeholder="Cari Wilayah" class="form-control" value="<?= $_POST['daerah'] ?>">
                         <div class="input-group-append">
                             <button type="submit" name="cdaerah" class="btn btn-link"><i class="fas fa-search"></i></button>
                         </div>

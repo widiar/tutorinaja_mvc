@@ -308,7 +308,7 @@ class Auth extends Controller
     {
         session_unset();
         session_destroy();
-        header('Location: ' . BASEURL . 'auth/login');
+        header('Location: ' . BASEURL);
     }
     public function alamat($jenis)
     {
