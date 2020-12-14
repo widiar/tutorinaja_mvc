@@ -8,6 +8,10 @@ class Auth_model
     {
         $this->db = new Database;
     }
+    public function cekunik($table, $kolom, $data)
+    {
+        return $this->db->single("SELECT * FROM $table WHERE $kolom='$data'");
+    }
     public function pendaftaran($data, $table)
     {
         $nama = amankan($data['nama']);
@@ -59,7 +63,6 @@ class Auth_model
         $notlp = amankan($data['notlp']);
         $tempatlahir = amankan($data['tempatlahir']);
         $tanggallahir = amankan($data['tanggallahir']);
-        $provinsi = amankan($data['provinsi']);
         $kabupaten = amankan($data['kabupaten']);
         $kecamatan = amankan($data['kecamatan']);
         $kelurahan = amankan($data['kelurahan']);
@@ -70,17 +73,16 @@ class Auth_model
         jk=?, 
         notlp=?, 
         tempatlahir=?, 
-        tanggallahir=?, 
-        provinsi=?, 
+        tanggallahir=?,  
         kabupaten=?, 
         kecamatan=?, 
         kelurahan=?, 
         alamat=? 
         WHERE username='$user'";
         $this->db->query($sql);
-        $param = 'sssssssssss';
+        $param = 'ssssssssss';
         $values = [
-            $nama, $npanggilan, $jk, $notlp, $tempatlahir, $tanggallahir, $provinsi, $kabupaten, $kecamatan, $kelurahan, $alamat,
+            $nama, $npanggilan, $jk, $notlp, $tempatlahir, $tanggallahir, $kabupaten, $kecamatan, $kelurahan, $alamat,
         ];
         $this->db->bind($param, $values);
         $tmp = $this->db->execute();
@@ -183,11 +185,10 @@ class Auth_model
         $siswa = $this->db->single("SELECT * FROM siswa WHERE username='$username'");
         $namaortu = amankan($data['namaortu']);
         $notlportu = amankan($data['notlportu']);
-        $provinsi = amankan($data['provinsi']);
         $kabupaten = amankan($data['kabupaten']);
         $kecamatan = amankan($data['kecamatan']);
         $kelurahan = amankan($data['kelurahan']);
-        $alamat = amankan($data['kelurahan']);
+        $alamat = amankan($data['alamat']);
         $ekstensifoto = pathinfo($data['foto']['name'], PATHINFO_EXTENSION);
         $namefoto = uniqid(1) . "." . $ekstensifoto;
         $dirfoto = "../public/asset/siswa/foto/";
@@ -199,11 +200,11 @@ class Auth_model
         if ($this->db->execute() == 1) {
             $ids = $siswa['id'];
             $ido = $this->db->single("SELECT id_ortu FROM orangtuasiswa WHERE id_siswa='$ids'");
-            $sql = "UPDATE siswa SET id_ortu=?, provinsi=?, kabupaten=?, kecamatan=?, kelurahan=?, alamat=?, foto=? WHERE id='$ids'";
+            $sql = "UPDATE siswa SET id_ortu=?, kabupaten=?, kecamatan=?, kelurahan=?, alamat=?, foto=? WHERE id='$ids'";
             $this->db->query($sql);
-            $param = 'issssss';
+            $param = 'isssss';
             $values = [
-                $ido, $provinsi, $kabupaten, $kecamatan, $kelurahan, $alamat, $namefoto,
+                $ido['id_ortu'], $kabupaten, $kecamatan, $kelurahan, $alamat, $namefoto,
             ];
             $this->db->bind($param, $values);
             if ($this->db->execute() == 1) {

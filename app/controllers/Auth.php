@@ -21,71 +21,16 @@ class Auth extends Controller
         $this->view('auth/daftar');
         $this->view('auth/footer');
     }
-    private function validation($data, $rules)
-    {
-        $error = false;
-        foreach ($rules as $name => $isinya) {
-            if (!isset($data[$name]['name']))
-                $data[$name] = amankan($data[$name]);
-            $isi = explode("|", $isinya);
-            foreach ($isi as $ini) {
-                if (strcmp($ini, 'required') == 0) {
-                    if (isset($data[$name]['name'])) {
-                        if (empty($data[$name]['name'])) {
-                            $_SESSION['error' . $name] = $name .  " harus di isi";
-                            $error = true;
-                        }
-                    } else {
-                        if (empty($data[$name])) {
-                            $_SESSION['error' . $name] = $name . " harus di isi";
-                            $error = true;
-                        }
-                    }
-                } else if (strcmp($ini, 'satukata') == 0) {
-                    $tmp = explode(" ", $data[$name]);
-                    if (count($tmp) > 1) {
-                        $_SESSION['error' . $name] = $name . " tidak boleh ada spasi";
-                        $error = true;
-                    }
-                } else if (strcmp($ini, 'email') == 0) {
-                    if (!filter_var($data[$name], FILTER_VALIDATE_EMAIL)) {
-                        $_SESSION['error' . $name] = $name .  " haruslah valid email";
-                        $error = true;
-                    }
-                } else if (strpos($ini, 'sama') !== false) {
-                    $tmp = explode(":", $ini);
-                    if (strcmp($data[$name], $data[$tmp[1]]) != 0) {
-                        $_SESSION['error' . $name] = $name . " dan " . $tmp[1] . " harus sama";
-                        $error = true;
-                    }
-                } else if (strcmp($ini, 'image') == 0) {
-                    if (getimagesize($data[$name]['tmp_name']) === false) {
-                        $_SESSION['error' . $name] = $name .  " haruslah sebuah image";
-                        $error = true;
-                    }
-                } else if (strpos($ini, 'tipefile') !== false) {
-                    $tmp = explode(":", $ini);
-                    $tipenya = explode(",", $tmp[1]);
-                    $ekstensinya = strtolower(pathinfo($data[$name]['name'], PATHINFO_EXTENSION));
-                    if (!in_array($ekstensinya, $tipenya)) {
-                        if (!isset($_SESSION['error' . $name])) $_SESSION['error' . $name] = $name .  " ekstensinya tidak sesuai";
-                        $error = true;
-                    }
-                }
-            }
-        }
-        foreach ($rules as $name => $isi) if ($error) $_SESSION['val' . $name] = $data[$name];
-        return $error;
-    }
+
     public function sukdaftar()
     {
-        if (isset($_POST['siswa']) || isset($_POST['tutor'])) {
+        if (isset($_POST['siswa'])) {
             //validation
             $rules = [
                 'nama' => 'required',
                 'notlp' => 'required',
-                'username' => 'required|satukata',
-                'email' => 'required|email',
+                'username' => 'required|satukata|unik:user',
+                'email' => 'required|email|unik:siswa',
                 'password' => 'required|sama:password2',
                 'password2' => 'required'
             ];
@@ -94,10 +39,22 @@ class Auth extends Controller
                 header('Location: ' . BASEURL . 'auth/daftar');
                 die;
             }
-        } //end validation
-        if (isset($_POST['siswa'])) {
             $cek = $this->model('Auth_model')->pendaftaran($_POST, 'siswa');
         } else if (isset($_POST['tutor'])) {
+            //validation
+            $rules = [
+                'nama' => 'required',
+                'notlp' => 'required',
+                'username' => 'required|satukata|unik:user',
+                'email' => 'required|email|unik:tutor',
+                'password' => 'required|sama:password2',
+                'password2' => 'required'
+            ];
+            $error = $this->validation($_POST, $rules);
+            if ($error) {
+                header('Location: ' . BASEURL . 'auth/daftar');
+                die;
+            }
             $cek = $this->model('Auth_model')->pendaftaran($_POST, 'tutor');
         }
         if ($cek == 1) {
@@ -160,7 +117,7 @@ class Auth extends Controller
                 die;
             }
             $data['user'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'tutor');
-            $data['provinsi'] = $this->model('AlamatModel')->ambilprovinsi();
+            $data['kabupaten'] = $this->model('AlamatModel')->ambilkabupaten();
             $this->view('profile/tutor', $data);
         } else {
             header('Location:' . BASEURL . 'auth/login');
@@ -174,7 +131,7 @@ class Auth extends Controller
                 die;
             }
             $data['user'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
-            $data['provinsi'] = $this->model('AlamatModel')->ambilprovinsi();
+            $data['kabupaten'] = $this->model('AlamatModel')->ambilkabupaten();
             $this->view('profile/siswa', $data);
         } else {
             header('Location:' . BASEURL . 'auth/login');
@@ -313,13 +270,6 @@ class Auth extends Controller
     public function alamat($jenis)
     {
         switch ($jenis) {
-            case 'kabupaten':
-                $idprov = $_POST['id_provinsi'];
-                $data = $this->model('AlamatModel')->ambilkabupaten($idprov);
-                foreach ($data as $kabupaten) {
-                    echo '<option value="' . $kabupaten['id'] . '">' . $kabupaten['name'] . '</option>';
-                }
-                break;
             case 'kecamatan':
                 $idkab = $_POST['id_kabupaten'];
                 $data = $this->model('AlamatModel')->ambilkecamatan($idkab);

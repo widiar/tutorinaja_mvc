@@ -47,7 +47,7 @@
                         <select class="form-control <?php if (isset($_SESSION['errormatapelajaran'])) echo 'is-invalid'; ?>" name="matapelajaran">
                             <option selected value="">Mata pelajaran</option>
                             <?php foreach ($mapel as $map) : ?>
-                                <option <?php if (isset($_SESSION['valmatapelajaran'])) if (strcmp($_SESSION['valmatapelajaran'], '90menit') == 0) echo 'selected'; ?> value="<?= $map ?>"><?= $map ?></option>
+                                <option <?php if (isset($_SESSION['valmatapelajaran'])) if (strcmp($_SESSION['valmatapelajaran'], $map) == 0) echo 'selected'; ?> value="<?= $map ?>"><?= $map ?></option>
                             <?php endforeach; ?>
                             <?php if (isset($_SESSION['valmatapelajaran'])) unset($_SESSION['valmatapelajaran']) ?>
                         </select>

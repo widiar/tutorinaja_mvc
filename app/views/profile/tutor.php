@@ -147,20 +147,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Provinsi</label>
+                                <label>Kabupaten</label>
                                 <br>
-                                <select name="provinsi" class="selectpicker provinsi" required data-live-search="true" title="Provinsi" data-size="7" data-width="100%">
-                                    <?php foreach ($data['provinsi'] as $prov) : ?>
-                                        <option value="<?= $prov['id'] ?>"><?= $prov['name'] ?></option>
+                                <select name="kabupaten" class="selectpicker kabupaten" required data-live-search="true" title="kabupaten" data-size="7" data-width="100%">
+                                    <?php foreach ($data['kabupaten'] as $kab) : ?>
+                                        <option value="<?= $kab['id'] ?>"><?= $kab['name'] ?></option>
                                     <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Kabupaten</label> <br>
-                                <select name="kabupaten" class="selectpicker kabupaten" required id="kabupaten" data-live-search="true" title="Kabupaten" data-size="7" data-width="100%">
-                                    <option value=""></option>
                                 </select>
                             </div>
                         </div>
@@ -510,40 +502,24 @@
         })
         $('#tLahir').datepicker({
             autoHide: true,
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            endDate: '0d',
         });
-        $(".provinsi").change(function() {
+        $(".kabupaten").change(function() {
             var id = $(this).val();
-            var urel = "<?= BASEURL ?>/auth/alamat/kabupaten";
+            var urel = "<?= BASEURL ?>/auth/alamat/kecamatan";
             $.ajax({
                 type: "post",
                 url: urel,
                 dataType: "html",
-                data: "id_provinsi=" + id,
-                success: function(msg) {
-                    $("#kabupaten").html(msg).selectpicker('refresh');
-                    $(".kabupaten").selectpicker('refresh');
-                    ambildatakecamatan();
-                }
-            });
-        });
-        $("#kabupaten").change(ambildatakecamatan);
-
-        function ambildatakecamatan() {
-            var idkb = $("#kabupaten").val();
-            var urelkc = "<?= BASEURL ?>/auth/alamat/kecamatan";
-            $.ajax({
-                type: "post",
-                url: urelkc,
-                dataType: "html",
-                data: "id_kabupaten=" + idkb,
+                data: "id_kabupaten=" + id,
                 success: function(msg) {
                     $("#kecamatan").html(msg).selectpicker('refresh');
                     $("select.kecamatan").selectpicker('refresh');
                     ambildatakelurahan();
                 }
             });
-        }
+        });
         $("#kecamatan").change(ambildatakelurahan);
 
         function ambildatakelurahan() {
