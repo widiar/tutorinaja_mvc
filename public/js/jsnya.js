@@ -19,6 +19,16 @@ $(document).ready(function(){
         });
         $("#profilesiswa").modal('show');
     });
+    $(".profiltutor").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('href'),
+            success: function(data){
+                $(".isiprofiltutor").html(data);
+            }
+        });
+        $("#profiletutor").modal('show');
+    });
     $(".liatdetailtutor").click(function(e){
         e.preventDefault();
         $.ajax({
@@ -30,6 +40,18 @@ $(document).ready(function(){
             }
         });
         $("#detailtutor").modal('show');
+    });
+    $(".liatdetailsiswa").click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('href'),
+            dataType: 'json',
+            success: function(data){
+                $(".isidetailsiswa").html(data[0]);
+                $(".tomboldetailsiswa").html(data[1]);
+            }
+        });
+        $("#detailsiswa").modal('show');
     });
     $(".detailtutor").click(function(e){
         e.preventDefault();
@@ -57,7 +79,45 @@ $(document).ready(function(){
         })
     })
     
-})
+});
+function updateterima(param){
+    data = param + "="
+    $(".updatediterima").submit(function(e){
+        e.preventDefault();
+        Swal.fire({
+            title: 'Anda yakin?',
+            text: 'Sekalinya anda rubah, dia tidak bisa dirubah lagi',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, yakin!',
+            cancelButtonText: 'Jangan deh',
+        }).then((result)=>{
+            if(result.isConfirmed){
+                $.ajax({
+                    type: $(".updatediterima").attr("method"),
+                    url: $(".updatediterima").attr("action"),
+                    data: data,
+                    dataType: 'html',
+                    success: function(msg){
+                        if(msg == 'Sukses')
+                            Swal.fire(
+                                'Sukses dong',
+                                'Berhasil ngubah status siswa',
+                                'success'
+                            ).then((result)=> {window.location.href = ''; });
+                        else
+                            Swal.fire(
+                                'Gagal',
+                                'Terjadi Kesalahan',
+                                'error'
+                            ).then((result)=> {window.location.href = ''; });
+                                
+                    }
+                })
+            }
+        });
+    });
+}
 
 function veriftutor()
 {
@@ -88,7 +148,7 @@ function veriftutor()
                                 Swal.fire(
                                     'Gagal',
                                     'Terjadi Kesalahan',
-                                    'failed'
+                                    'error'
                                 ).then((result)=> {window.location.href = ''; });  
                         }
                     }) 

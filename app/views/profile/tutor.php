@@ -499,7 +499,7 @@
     <script>
         $(document).ready(function() {
             bsCustomFileInput.init()
-        })
+        });
         $('#tLahir').datepicker({
             autoHide: true,
             format: 'yyyy-mm-dd',

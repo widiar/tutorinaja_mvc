@@ -23,14 +23,14 @@
             <div class="collapse navbar-collapse" id="navbarNav"></div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ml-2">
-                    <a class="nav-link text-white" href="mycourse"><i class="fas fa-chalkboard-teacher mr-2"></i>MY TUTOR</a>
+                    <a class="nav-link text-white" href="<?= BASEURL ?>siswa/mycourse"><i class="fas fa-chalkboard-teacher mr-2"></i>MY TUTOR</a>
                 </li>
                 <li class="nav-item ml-2">
-                    <a class="nav-link text-white profilsiswa" href="yanglogin">PROFIL<i class="fas fa-user-alt ml-2"></i></a>
+                    <a class="nav-link text-white profilsiswa" href="<?= BASEURL ?>siswa/yanglogin">PROFIL<i class="fas fa-user-alt ml-2"></i></a>
                 </li>
 
                 <li class="nav-item ml-2">
-                    <a class="nav-link text-white logout" href="../auth/logout">LOGOUT<i class="fas fa-sign-out-alt ml-2"></i></a>
+                    <a class="nav-link text-white logout" href="<?= BASEURL ?>auth/logout">LOGOUT<i class="fas fa-sign-out-alt ml-2"></i></a>
                 </li>
 
 
