@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>fontawesome/css/all.min.css">
 
     <title><?= $data['judul'] ?></title>
 </head>

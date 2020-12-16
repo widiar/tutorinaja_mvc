@@ -14,6 +14,10 @@ class TutorModel
         WHERE username='$user'";
         return $this->db->single($sql);
     }
+    public function satututor($id)
+    {
+        return $this->db->single("SELECT * FROM tutor WHERE id='$id'");
+    }
     public function ambilmapel($idtutor, $mapelnya)
     {
         $sql = "SELECT * FROM reservasi JOIN siswa ON id_siswa=siswa.id WHERE id_tutor=$idtutor AND mapel='$mapelnya'";
@@ -37,5 +41,20 @@ class TutorModel
         $sql = "UPDATE tutor SET buktibayar='$namanya' WHERE username='$user'";
         if ($this->db->queryexecute($sql) == 1)
             if (move_uploaded_file($data['buktibayar']['tmp_name'], $dir . $namanya)) return 1;
+    }
+    public function updateprofile($data, $user)
+    {
+        $nama = amankan($data['nama']);
+        $namapanggilan = amankan($data['namapanggilan']);
+        $jeniskelamin = amankan($data['jeniskelamin']);
+        $notlp = amankan($data['notlp']);
+        $tempatlahir = amankan($data['tempatlahir']);
+        $alamat = amankan($data['alamat']);
+        $s = "UPDATE tutor SET nama=?, namapanggilan=?, jk=?, notlp=?, tempatlahir=?, alamat=? WHERE username='$user'";
+        $this->db->query($s);
+        $param = 'ssssss';
+        $values = [$nama, $namapanggilan, $jeniskelamin, $notlp, $tempatlahir, $alamat];
+        $this->db->bind($param, $values);
+        if ($this->db->execute() == 1) return 1;
     }
 }

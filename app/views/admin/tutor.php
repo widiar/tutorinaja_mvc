@@ -42,16 +42,32 @@
                     <td>
                         <?php if ($tutor['profileLengkap'] == 4) : ?>
                             <?php if ($tutor['verif'] == 0) : ?>
-                                <span class="badge badge-warning">Not Verifed</span>
+                                <span class="badge badge-danger">Not Verifed</span>
                             <?php else : ?>
                                 <span class="badge badge-success">Verifed</span>
                             <?php endif; ?>
                         <?php else : ?>
-                            <span class="badge badge-danger">Data Belum Lengkap</span>
+                            <span class="badge badge-warning">Data Belum Lengkap</span>
                         <?php endif; ?>
                     </td>
-                    <td><u class="text-info">bayar.jpg</u></td>
-                    <td><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button></td>
+                    <td class="text-center">
+                        <?php if (!empty($tutor['buktibayar'])) : ?>
+                            <a class="liatbuktibayar" href="buktibayartutor/<?= $tutor['id'] ?>">
+                                <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></button>
+                            </a>
+                        <?php else : ?>
+                            <span class="badge badge-danger">Belum Bayar</span>
+                        <?php endif; ?>
+                    </td>
+                    <td class="text-center">
+                        <?php if ($tutor['status'] == 0) : ?>
+                            <a class="hapustutor" href="hapustutor/<?= $tutor['id'] ?>">
+                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                            </a>
+                        <?php else : ?>
+                            <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                        <?php endif; ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
 

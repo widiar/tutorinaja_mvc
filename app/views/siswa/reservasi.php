@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>fontawesome/css/all.min.css">
     <title>Reservasi</title>
 </head>
 
@@ -19,7 +19,7 @@
         <br><br>
     </div>
     <div class="container">
-        <form action="../sukreservasi" method="post">
+        <form action="../sukreservasi" method="post" class="formreservasi">
             <input type="hidden" name="idtutor" value="<?= $data['id'] ?>">
             <input type="hidden" name="usertutor" value="<?= $data['username'] ?>">
             <div class="row">
@@ -77,15 +77,16 @@
             </div>
             <br>
             <!-- Button trigger modal -->
-            <button type="submit" class="btn btn-primary" name="masuk">
+            <button type="submit" class="btn btn-primary">
                 SELESAI
             </button>
         </form>
     </div>
 
-    <script src="<?= BASEURL ?>/js/jquery.js"></script>
-    <script src="<?= BASEURL ?>/js/bootstrap.bundle.js"></script>
-    <script src="<?= BASEURL ?>/js/jsnya.js"></script>
+    <script src="<?= BASEURL ?>js/jquery.js"></script>
+    <script src="<?= BASEURL ?>js/bootstrap.bundle.js"></script>
+    <script src="<?= BASEURL ?>js/sweetalert2.all.js"></script>
+    <script src="<?= BASEURL ?>js/jsnya.js"></script>
 </body>
 
 </html>

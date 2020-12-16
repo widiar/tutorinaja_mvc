@@ -29,7 +29,7 @@ $(document).ready(function(){
         });
         $("#profiletutor").modal('show');
     });
-    $(".liatdetailtutor").click(function(e){
+    $(".liatdetailtutor, .liatbuktibayar").click(function(e){
         e.preventDefault();
         $.ajax({
             url: $(this).attr('href'),
@@ -41,6 +41,61 @@ $(document).ready(function(){
         });
         $("#detailtutor").modal('show');
     });
+    $(".sukses").each(function(){
+        Swal.fire(
+            'Sukses dong',
+            'Berhasil nambah data',
+            'success'
+        )
+    })
+    $(".hapustutor, .hapusreservasi").click(function(e){
+        e.preventDefault();
+        Swal.fire({
+            title: 'Confirm',
+            text: 'Anda yakin ingin hapus?',
+            icon: 'question',
+            showCancelButton: true,
+        }).then((result) => {
+            if(result.isConfirmed) {
+                $.ajax({
+                    url: $(this).attr("href"),
+                    dataType: 'html',
+                    success: function(msg){
+                        if(msg == 'Sukses')
+                            Swal.fire(
+                                'Sukses dong',
+                                'Berhasil hapus dong',
+                                'success'
+                            ).then((result)=> {window.location.href = ''; });
+                        else
+                            Swal.fire(
+                                'Gagal',
+                                'Terjadi Kesalahan',
+                                'error'
+                            ).then((result)=> {window.location.href = ''; });
+                    }
+                })
+            }
+        })
+    });
+    $(".editprofil").submit(function(e){
+        e.preventDefault();
+        console.log($(this).serialize());
+        $.ajax({
+            url: $(this).attr("action"),
+            type: $(this).attr("method"),
+            data: $(this).serialize(),
+            success: function(msg){
+                if(msg == "Sukses"){
+                    Swal.fire(
+                        'Sukses dong',
+                        'Berhasil edit profile',
+                        'success'
+                    ).then((result)=> {window.location.href = '../tutor/dashboard'; });
+                }else window.location.href = msg;
+            }
+        })
+    })
     $(".liatdetailsiswa").click(function(e){
         e.preventDefault();
         $.ajax({
@@ -64,6 +119,30 @@ $(document).ready(function(){
             }
         });
         $("#modalprofilTutor").modal('show');
+    });
+    $(".formreservasi").submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr("action"),
+            type: $(this).attr("method"),
+            data: $(this).serialize(),
+            success: function(msg){
+                if(msg == "Sukses"){
+                    Swal.fire(
+                        'Sukses',
+                        'Berhasil melakukan reservasi',
+                        'success'
+                    ).then((result)=> {window.location.href = '../dashboard'; });
+                }else if(msg == "Ada"){
+                    Swal.fire({
+                        title: 'Gagal',
+                        html: 'Anda dengan sudah melakukan reservasi tutor ini<br>Dan di mata pelajaran ini juga',
+                        icon: 'error'
+                    });
+                }
+                else window.location.href = msg;
+            }
+        })
     });
     $(".logout").click(function(e){
         e.preventDefault();

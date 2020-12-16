@@ -10,7 +10,8 @@ class SiswaModel
     public function ambildatatutor()
     {
         $sql = "SELECT * FROM tutor JOIN riwayatpendidikan ON tutor.id=riwayatpendidikan.id_tutor 
-        JOIN deskripsitutor ON tutor.id=deskripsitutor.id_tutor";
+        JOIN deskripsitutor ON tutor.id=deskripsitutor.id_tutor 
+        WHERE tutor.status=1";
         return $this->db->result($sql);
     }
 
@@ -35,6 +36,15 @@ class SiswaModel
         $this->db->bind($param, $values);
         if ($this->db->execute() == 1) return 1;
     }
+    public function cekreservasi($data, $user)
+    {
+        $mapel = amankan($data['matapelajaran']);
+        $siswa = $this->db->single("SELECT id FROM siswa WHERE username='$user'");
+        $ids = $siswa['id'];
+        $idtutor = amankan($data['idtutor']);
+        $s = "SELECT * FROM reservasi WHERE id_siswa='$ids' AND id_tutor='$idtutor' AND mapel='$mapel'";
+        return $this->db->single($s);
+    }
     public function ambilreservasi($ids)
     {
         $sql = "SELECT * FROM reservasi JOIN tutor ON id_tutor=tutor.id WHERE id_siswa='$ids'";
@@ -48,16 +58,19 @@ class SiswaModel
     public function satututordaerah($cari)
     {
         $cari = strtoupper($cari);
-        $sql = "SELECT tutor.id,foto,nama,perkenalan, 
-                provinsi.name AS namaprovinsi, kabupaten.`name` AS namakabupaten, 
+        $sql = "SELECT tutor.id,foto,nama,perkenalan,minatmapel,minatngajar, 
+                kabupaten.`name` AS namakabupaten, 
                 kecamatan.`name` AS namakecamatan, kelurahan.`name` AS namakelurahan
                 FROM tutor JOIN riwayatpendidikan ON tutor.id=riwayatpendidikan.id_tutor 
                 JOIN deskripsitutor ON tutor.id=deskripsitutor.id_tutor
-                JOIN provinsi ON tutor.provinsi=provinsi.id 
                 JOIN kabupaten ON tutor.kabupaten=kabupaten.id 
                 JOIN kecamatan ON tutor.kecamatan=kecamatan.id 
                 JOIN kelurahan ON tutor.kelurahan=kelurahan.id 
-                WHERE provinsi.`name`='$cari' OR kabupaten.`name`='$cari' OR kecamatan.`name`='$cari' OR kelurahan.`name`='$cari'";
+                WHERE kabupaten.`name`='$cari' OR kecamatan.`name`='$cari' OR kelurahan.`name`='$cari'";
         return $this->db->result($sql);
+    }
+    public function hapusreservasi($idnya)
+    {
+        if ($this->db->queryexecute("DELETE FROM reservasi WHERE id_res='$idnya'") == 1) return 1;
     }
 }

@@ -184,4 +184,27 @@ class Tutor extends Controller
             die;
         }
     }
+    public function editprofile($id)
+    {
+        $tutor = $this->model('TutorModel')->satututor($id);
+        $this->view('tutor/editprofile', $tutor);
+    }
+    public function sukprofile()
+    {
+        $id = $_POST['idtutor'];
+        $rules = [
+            'nama' => 'required',
+            'namapanggilan' => 'required',
+            'jeniskelamin' => 'required',
+            'notlp' => 'required',
+            'tempatlahir' => 'required',
+            'alamat' => 'required',
+        ];
+        if ($this->validation($_POST, $rules))
+            echo BASEURL . "tutor/editprofile/" . $id;
+        else if ($this->model('TutorModel')->updateprofile($_POST, $_SESSION['username']) == 1)
+            echo "Sukses";
+        else
+            echo "as";
+    }
 }

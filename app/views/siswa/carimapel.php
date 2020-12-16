@@ -32,7 +32,7 @@
                             <button type="submit" name="cdaerah" class="btn btn-link"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
-                    <small class="text-info ml-2">*Berdasarkan provinsi, kabupaten, kecamatan, atau daerah</small>
+                    <small class="text-info ml-2">*Berdasarkan kabupaten, kecamatan, atau daerah</small>
                 </form>
             </div>
         </div>
@@ -50,8 +50,10 @@
             <br>
             <div class="grid">
                 <div class="row mt-4">
-                    <?php foreach ($data['tutor'] as $tutor) : ?>
-                        <?php if (strpos($tutor['minatmapel'], $_POST['mapel']) !== false) : ?>
+
+                    <?php $tmp = explode(" ", $data['siswa']['jenjangpendidikan']);
+                    foreach ($data['tutor'] as $tutor) : ?>
+                        <?php if (strpos($tutor['minatngajar'], $tmp[1]) !== false) : ?>
                             <div class="col-md-3 col-sm-12 mb-3">
                                 <div class="card shadow p-3 mb-5 bg-white rounded">
                                     <img src="<?= BASEURL ?>asset/tutor/foto/<?= $tutor['foto'] ?>" class="card-img-top">
@@ -66,8 +68,8 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                    <?php endif;
+                    endforeach; ?>
 
                 </div>
             </div>

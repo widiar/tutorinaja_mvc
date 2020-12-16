@@ -37,4 +37,26 @@ class AdminModel
         $sql = "SELECT * FROM siswa JOIN orangtuasiswa ON siswa.id=orangtuasiswa.id_siswa";
         return $this->db->result($sql);
     }
+    public function verifstatus($data, $id)
+    {
+        return $this->db->queryexecute("UPDATE tutor SET status='$data' WHERE id='$id'");
+    }
+    public function hapustutor($id)
+    {
+        $dirijasah = "../public/asset/tutor/ijasah/";
+        $ij = $this->db->single("SELECT ijasah FROM riwayatpendidikan WHERE id_tutor='$id'");
+        $ijasah = $ij['ijasah'];
+        if (unlink($dirijasah . $ijasah))
+            if ($this->db->queryexecute("DELETE FROM riwayatpendidikan WHERE id_tutor='$id'") == 1)
+                if ($this->db->queryexecute("DELETE FROM deskripsitutor WHERE id_tutor='$id'") == 1) {
+                    $tmp = $this->db->single("SELECT * FROM tutor WHERE id='$id'");
+                    $dirfoto = "../public/asset/tutor/foto/";
+                    $user = $tmp['username'];
+                    $foto = $tmp['foto'];
+                    if (unlink($dirfoto . $foto))
+                        if ($this->db->queryexecute("DELETE FROM tutor WHERE id='$id'") == 1) {
+                            if ($this->db->queryexecute("DELETE FROM user WHERE username='$user'") == 1) return 1;
+                        }
+                }
+    }
 }

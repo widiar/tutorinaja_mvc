@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>fontawesome/css/all.min.css">
 
     <title>Dashboard Tutor</title>
 </head>
@@ -49,7 +49,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <a href="#">
+                    <a href="<?= BASEURL ?>tutor/editprofile/<?= $data['id'] ?>">
                         <button class="btn btn-info">Edit Profil</button>
                     </a>
                 </div>

@@ -33,6 +33,26 @@
                                     <td>:</td>
                                     <td><?= $tutor['lokasibelajar'] ?>h</td>
                                 </tr>
+                                <tr>
+                                    <td><b>Status</b></td>
+                                    <td>:</td>
+                                    <?php if ($tutor['diterima'] == 0) : ?>
+                                        <td class="badge badge-warning">Menunggu Konfirmasi</td>
+                                    <?php elseif ($tutor['diterima'] == 1) : ?>
+                                        <td class="badge badge-success">Sudah Diterima, Tutor akan menghubungi</td>
+                                    <?php else : ?>
+                                        <td class="badge badge-danger">Ditolak oleh tutor</td>
+                                    <?php endif; ?>
+                                </tr>
+                                <?php if ($tutor['diterima'] == 2) : ?>
+                                    <th>Action</th>
+                                    <td>:</td>
+                                    <td>
+                                        <a href="<?= BASEURL ?>siswa/hapusreservasi/<?= $tutor['id_res'] ?>" class="hapusreservasi">
+                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                        </a>
+                                    </td>
+                                <?php endif; ?>
                             </table>
                             <br>
                             <a href="detailtutor/<?= $tutor['id'] ?>/cs" class="detailtutor">

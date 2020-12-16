@@ -11,6 +11,7 @@ class Siswa extends Controller
     {
         if (isset($_POST['cari'])) {
             $isi['tutor'] = $this->model('SiswaModel')->ambildatatutor();
+            $isi['siswa'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
             $this->view("siswa/header");
             $this->view("siswa/carimapel", $isi);
             $this->view("siswa/footer");
@@ -20,6 +21,7 @@ class Siswa extends Controller
     {
         if (isset($_POST['cdaerah'])) {
             $isi['tutor'] = $this->model('SiswaModel')->satututordaerah($_POST['daerah']);
+            $isi['siswa'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
             $this->view("siswa/header");
             $this->view("siswa/caridaerah", $isi);
             $this->view("siswa/footer");
@@ -31,6 +33,7 @@ class Siswa extends Controller
             $data = $this->model('Auth_model')->maumasuk($_SESSION['username']);
             if ($data['verif'] == 1) {
                 $isi['tutor'] = $this->model('SiswaModel')->ambildatatutor();
+                $isi['siswa'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
                 $this->view("siswa/header");
                 $this->view("siswa/index", $isi);
                 $this->view("siswa/footer");
@@ -141,7 +144,7 @@ class Siswa extends Controller
                     </a>
                 ';
             elseif (strcmp($dimana, 'cs') == 0) {
-                $string[1] = '<button" class="btn btn-primary">Status</button>';
+                $string[1] = '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
             }
             echo json_encode($string);
         }
@@ -153,23 +156,23 @@ class Siswa extends Controller
     }
     public function sukreservasi()
     {
-        if (isset($_POST['masuk'])) {
-            $tutor = $_POST['usertutor'];
-            $user = $_SESSION['username'];
-            $rules = [
-                'durasi' => 'required',
-                'matapelajaran' => 'required',
-                'lokasibelajar' => 'required',
-            ];
-            if ($this->validation($_POST, $rules)) {
-                header('Location: ' . BASEURL . 'siswa/reservasi/' . $tutor);
-                die;
-            }
-            if ($this->model('SiswaModel')->reservasi($_POST, $user) == 1) {
-                header('Location: ' . BASEURL . 'siswa/dahsboard');
-                die;
-            }
+        // if (isset($_POST['masuk'])) {
+        $tutor = $_POST['usertutor'];
+        $user = $_SESSION['username'];
+        $rules = [
+            'durasi' => 'required',
+            'matapelajaran' => 'required',
+            'lokasibelajar' => 'required',
+        ];
+        $ngecek = $this->model('SiswaModel')->cekreservasi($_POST, $user);
+        if ($this->validation($_POST, $rules)) {
+            echo BASEURL . 'siswa/reservasi/' . $tutor;
+        } else if ($ngecek) {
+            echo "Ada";
+        } else if ($this->model('SiswaModel')->reservasi($_POST, $user) == 1) {
+            echo "Sukses";
         }
+        // }
     }
     public function mycourse()
     {
@@ -178,6 +181,11 @@ class Siswa extends Controller
         $this->view('siswa/header');
         $this->view('siswa/mycourse', $data);
         $this->view('siswa/footer');
+    }
+
+    public function hapusreservasi($idnya)
+    {
+        if ($this->model('SiswaModel')->hapusreservasi($idnya) == 1) echo "Sukses";
     }
 
     public function yanglogin()

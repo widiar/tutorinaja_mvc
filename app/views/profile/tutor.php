@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/fontawesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/bootstrap-select.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>/css/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/bootstrap-select.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASEURL ?>css/datepicker.css">
 
     <title>Formulir Tutor</title>
 </head>
@@ -29,7 +29,7 @@
     </div>
     <div class="container">
         <?php if (isset($_SESSION['sukses'])) : ?>
-            <div class="alert alert-success"><?= $_SESSION['sukses'] ?></div>
+            <div class="alert alert-success sukses"><?= $_SESSION['sukses'] ?></div>
         <?php unset($_SESSION['sukses']);
         endif; ?>
         <form action="sukdatatutor" method="post" enctype="multipart/form-data">
@@ -484,17 +484,18 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <button type="submit" name="kirim" class="btn btn-primary my-4">SELANJUTNYA</button></a>
+            <button type="submit" name="kirim" class="btn btn-primary my-4 next">SELANJUTNYA</button></a>
         </form>
     </div>
 
-    <script src="<?= BASEURL ?>/js/jquery.js"></script>
-    <script src="<?= BASEURL ?>/js/bootstrap.bundle.js"></script>
-    <script src="<?= BASEURL ?>/js/jsnya.js"></script>
-    <script src="<?= BASEURL ?>/js/bootstrap-select.js"></script>
-    <script src="<?= BASEURL ?>/js/select/defaults-id_ID.js"></script>
-    <script src="<?= BASEURL ?>/js/datepicker.js"></script>
-    <script src="<?= BASEURL ?>/js/bs-custom-file-input.js"></script>
+    <script src="<?= BASEURL ?>js/jquery.js"></script>
+    <script src="<?= BASEURL ?>js/bootstrap.bundle.js"></script>
+    <script src="<?= BASEURL ?>js/sweetalert2.all.js"></script>
+    <script src="<?= BASEURL ?>js/jsnya.js"></script>
+    <script src="<?= BASEURL ?>js/bootstrap-select.js"></script>
+    <script src="<?= BASEURL ?>js/select/defaults-id_ID.js"></script>
+    <script src="<?= BASEURL ?>js/datepicker.js"></script>
+    <script src="<?= BASEURL ?>js/bs-custom-file-input.js"></script>
 
     <script>
         $(document).ready(function() {

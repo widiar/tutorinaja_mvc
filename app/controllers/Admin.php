@@ -40,6 +40,28 @@ class Admin extends Controller
             echo '<iframe src="' . BASEURL . 'asset/tutor/ijasah/' . $data['ijasah'] . '#toolbar=0" height="500px" width="100%"></iframe>';
         }
     }
+    public function buktibayartutor($id)
+    {
+        $data = $this->model('AdminModel')->ambilsatu($id, 'tutor', 'id');
+        if ($data['buktibayar']) {
+            $text[0] = '<div class="text-center"><img src="' . BASEURL . 'asset/tutor/buktibayar/' . $data['buktibayar'] . '" width="70%"></div>';
+            if ($data['status'] == '0')
+                $text[1] = '
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="statustutor/' . $data['id'] . '" class="konfirm">
+                        <button onclick="veriftutor()" class="btn btn-primary">Konfirmasi</button>
+                    </a>
+                ';
+            else
+                $text[1] = '
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="batalstatustutor/' . $data['id'] . '" class="konfirm">
+                        <button onclick="veriftutor()" class="btn btn-danger">Batal Konfirmasi</button>
+                    </a>
+                ';
+            echo json_encode($text);
+        }
+    }
     public function detailtutor($id)
     {
         $data = $this->model('AdminModel')->ambilsatututor($id);
@@ -138,6 +160,21 @@ class Admin extends Controller
     public function batalverifikasitutor($user)
     {
         if ($this->model('AdminModel')->veriftutor($user, 0) == 1) echo "Sukses";
+        else echo "Gagal";
+    }
+    public function statustutor($id)
+    {
+        if ($this->model('AdminModel')->verifstatus(1, $id) == 1) echo "Sukses";
+        else echo "Gagal";
+    }
+    public function batalstatustutor($id)
+    {
+        if ($this->model('AdminModel')->verifstatus(0, $id) == 1) echo "Sukses";
+        else echo "Gagal";
+    }
+    public function hapustutor($id)
+    {
+        if ($this->model('AdminModel')->hapustutor($id) == 1) echo "Sukses";
         else echo "Gagal";
     }
     public function detailsiswa($id)
