@@ -81,6 +81,8 @@ $(document).ready(function(){
     $(".editprofil").submit(function(e){
         e.preventDefault();
         console.log($(this).serialize());
+        var nama = window.location.pathname;
+        var lg = nama.split("/");
         $.ajax({
             url: $(this).attr("action"),
             type: $(this).attr("method"),
@@ -91,7 +93,7 @@ $(document).ready(function(){
                         'Sukses dong',
                         'Berhasil edit profile',
                         'success'
-                    ).then((result)=> {window.location.href = '../tutor/dashboard'; });
+                    ).then((result)=> {window.location.href = '../'+ lg[3] +'/dashboard'; });
                 }else window.location.href = msg;
             }
         })

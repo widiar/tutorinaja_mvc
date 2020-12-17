@@ -1,6 +1,6 @@
 <?php
 
-
+session_start();
 class Controller
 {
     public function view($view, $data = [])
@@ -70,10 +70,22 @@ class Controller
                         if (!isset($_SESSION['error' . $name])) $_SESSION['error' . $name] = $name .  " ekstensinya tidak sesuai";
                         $error = true;
                     }
+                } else if (strcmp($ini, "angka") == 0) {
+                    if (!is_numeric($data[$name])) {
+                        $_SESSION['error' . $name] = $name .  " haruslah angka!";
+                        $error = true;
+                    }
                 }
             }
         }
         foreach ($rules as $name => $isi) if ($error) $_SESSION['val' . $name] = $data[$name];
         return $error;
+    }
+    protected function cekrolenya($role)
+    {
+        if (isset($_SESSION['role']))
+            if ($_SESSION['role'] != $role) return true;
+            else return false;
+        else return true;
     }
 }

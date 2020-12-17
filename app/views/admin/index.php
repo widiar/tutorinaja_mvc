@@ -10,7 +10,7 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h1 class="card-title display text-muted">DATA TUTOR</h1>
-                    <p class="text-body" id="murid"> 2 Tutor</p>
+                    <p class="text-body" id="murid"> <?= count($data['tutor']) ?> Tutor</p>
                     <a href="tutor">
                         <p class="card-text text-info">Lihat Detail <i class="fas fa-angle-double-right ml-2"></i></p>
                     </a>
@@ -28,7 +28,7 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h1 class="card-title display text-muted">DATA SISWA</h1>
-                    <p class="text-body" id="murid"> 2 Siswa</p>
+                    <p class="text-body" id="murid"> <?= count($data['siswa']) ?> Siswa</p>
                     <a href="siswa">
                         <p class="card-text text-info">Lihat Detail <i class="fas fa-angle-double-right ml-2"></i></p>
                     </a>

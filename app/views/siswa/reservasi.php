@@ -81,6 +81,9 @@
                 SELESAI
             </button>
         </form>
+        <a href="<?= BASEURL ?>siswa/">
+            <button class="btn btn-primary mt-4">KEMBALI</button>
+        </a>
     </div>
 
     <script src="<?= BASEURL ?>js/jquery.js"></script>

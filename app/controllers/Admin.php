@@ -1,19 +1,30 @@
 <?php
-
+// session_start();
 class Admin extends Controller
 {
     public function index()
     {
         header('Location: ' . BASEURL . 'admin/dashboard');
     }
+
     public function dashboard()
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
+        $data['tutor'] = $this->model('AdminModel')->ambildatatutor();
+        $data['siswa'] = $this->model('AdminModel')->ambildatasiswa();
         $this->view("admin/header");
-        $this->view("admin/index");
+        $this->view("admin/index", $data);
         $this->view("admin/footer");
     }
     public function tutor()
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $data['tutor'] = $this->model('AdminModel')->ambildatatutor();
         $this->view("admin/header");
         $this->view("admin/tutor", $data);
@@ -21,6 +32,10 @@ class Admin extends Controller
     }
     public function siswa()
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $data['siswa'] = $this->model('AdminModel')->ambildatasiswa();
         $this->view("admin/header");
         $this->view("admin/siswa", $data);
@@ -28,6 +43,10 @@ class Admin extends Controller
     }
     public function fototutor($id)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $data = $this->model('AdminModel')->ambilsatu($id, 'tutor', 'id');
         if ($data['foto']) {
             echo '<img src="' . BASEURL . 'asset/tutor/foto/' . $data['foto'] . '" width="80%">';
@@ -35,6 +54,10 @@ class Admin extends Controller
     }
     public function ijasahtutor($id)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $data = $this->model('AdminModel')->ambilsatu($id, 'riwayatpendidikan', 'id_riwayat');
         if ($data['ijasah']) {
             echo '<iframe src="' . BASEURL . 'asset/tutor/ijasah/' . $data['ijasah'] . '#toolbar=0" height="500px" width="100%"></iframe>';
@@ -42,6 +65,10 @@ class Admin extends Controller
     }
     public function buktibayartutor($id)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $data = $this->model('AdminModel')->ambilsatu($id, 'tutor', 'id');
         if ($data['buktibayar']) {
             $text[0] = '<div class="text-center"><img src="' . BASEURL . 'asset/tutor/buktibayar/' . $data['buktibayar'] . '" width="70%"></div>';
@@ -64,6 +91,10 @@ class Admin extends Controller
     }
     public function detailtutor($id)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $data = $this->model('AdminModel')->ambilsatututor($id);
         $user = $this->model('Auth_model')->maumasuk($data['username']);
         if ($data) {
@@ -154,31 +185,55 @@ class Admin extends Controller
     }
     public function verifikasitutor($user)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         if ($this->model('AdminModel')->veriftutor($user, 1) == 1) echo "Sukses";
         else echo "Gagal";
     }
     public function batalverifikasitutor($user)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         if ($this->model('AdminModel')->veriftutor($user, 0) == 1) echo "Sukses";
         else echo "Gagal";
     }
     public function statustutor($id)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         if ($this->model('AdminModel')->verifstatus(1, $id) == 1) echo "Sukses";
         else echo "Gagal";
     }
     public function batalstatustutor($id)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         if ($this->model('AdminModel')->verifstatus(0, $id) == 1) echo "Sukses";
         else echo "Gagal";
     }
     public function hapustutor($id)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         if ($this->model('AdminModel')->hapustutor($id) == 1) echo "Sukses";
         else echo "Gagal";
     }
     public function detailsiswa($id)
     {
+        if ($this->cekrolenya(1)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $siswa = $this->model('SiswaModel')->ambilsatudatasiswa($id, 'id');
         if ($siswa) {
             $kata = '

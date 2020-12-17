@@ -23,7 +23,7 @@
         <br>
         <div class="container">
             <a href="logout">
-                <button class="btn btn-primary btn-sm mb-2">Logout</button>
+                <button class="btn btn-primary btn-sm mb-2 logout">Logout</button>
             </a>
         </div>
     </div>
@@ -100,10 +100,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>No. Telepon</label>
-                                <input type="number" name="notlp" class="form-control <?php if (isset($_SESSION['errornotlp'])) echo 'is-invalid'; ?>" value="<?php if (isset($_SESSION['valnotlp'])) {
-                                                                                                                                                                    echo $_SESSION['valnotlp'];
-                                                                                                                                                                    unset($_SESSION['valnotlp']);
-                                                                                                                                                                } else echo $data['user']['notlp'] ?>">
+                                <input type="text" name="notlp" class="form-control <?php if (isset($_SESSION['errornotlp'])) echo 'is-invalid'; ?>" value="<?php if (isset($_SESSION['valnotlp'])) {
+                                                                                                                                                                echo $_SESSION['valnotlp'];
+                                                                                                                                                                unset($_SESSION['valnotlp']);
+                                                                                                                                                            } else echo $data['user']['notlp'] ?>">
                                 <?php if (isset($_SESSION['errornotlp'])) : ?>
                                     <div class="invalid-feedback">
                                         <?= $_SESSION['errornotlp'] ?>
@@ -354,8 +354,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><i>- 90 menit</i></label>
-                                <input type="number" name="biaya90menit" class="form-control <?php if (isset($_SESSION['errorbiaya90menit'])) echo 'is-invalid'; ?>" placeholder="Masukkan biaya" value="<?php if (isset($_SESSION['valbiaya90menit'])) echo $_SESSION['valbiaya90menit'];
-                                                                                                                                                                                                            unset($_SESSION['valbiaya90menit']); ?>"></input>
+                                <input type="text" name="biaya90menit" class="form-control <?php if (isset($_SESSION['errorbiaya90menit'])) echo 'is-invalid'; ?>" placeholder="Masukkan biaya" value="<?php if (isset($_SESSION['valbiaya90menit'])) echo $_SESSION['valbiaya90menit'];
+                                                                                                                                                                                                        unset($_SESSION['valbiaya90menit']); ?>"></input>
                                 <?php if (isset($_SESSION['errorbiaya90menit'])) : ?>
                                     <div class="invalid-feedback">
                                         <?= $_SESSION['errorbiaya90menit'] ?>
@@ -367,7 +367,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><i>- 120 menit</i></label>
-                                <input type="number" name="biaya120menit" class="form-control <?php if (isset($_SESSION['errorbiaya120menit'])) echo 'is-invalid'; ?>" placeholder="Masukkan biaya" value="<?php if (isset($_SESSION['valbiaya120menit'])) echo $_SESSION['valbiaya120menit'];
+                                <input type="text" name="biaya120menit" class="form-control <?php if (isset($_SESSION['errorbiaya120menit'])) echo 'is-invalid'; ?>" placeholder="Masukkan biaya" value="<?php if (isset($_SESSION['valbiaya120menit'])) echo $_SESSION['valbiaya120menit'];
                                                                                                                                                                                                             unset($_SESSION['valbiaya120menit']); ?>"></input>
                                 <?php if (isset($_SESSION['errorbiaya120menit'])) : ?>
                                     <div class="invalid-feedback">

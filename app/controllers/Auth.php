@@ -1,14 +1,30 @@
 <?php
 
-session_start();
+// session_start();
 class Auth extends Controller
 {
     public function index()
     {
         header('Location: ' . BASEURL . 'auth/daftar');
     }
+    private function udahlogin()
+    {
+        if (isset($_SESSION['username']))
+            if (isset($_SESSION['role']))
+                if ($_SESSION['role'] == 1) {
+                    header('Location: ' . BASEURL . 'admin/dashboard');
+                    die;
+                } elseif ($_SESSION['role'] == 2) {
+                    header('Location: ' . BASEURL . 'tutor/dashboard');
+                    die;
+                } else if ($_SESSION['role'] == 3) {
+                    header('Location: ' . BASEURL . 'siswa/dashboard');
+                    die;
+                }
+    }
     public function login()
     {
+        $this->udahlogin();
         $data['judul'] = 'Halaman Login';
         $this->view('auth/header', $data);
         $this->view('auth/login');
@@ -16,6 +32,7 @@ class Auth extends Controller
     }
     public function daftar()
     {
+        $this->udahlogin();
         $data['judul'] = 'Halaman Daftar';
         $this->view('auth/header', $data);
         $this->view('auth/daftar');
@@ -28,7 +45,7 @@ class Auth extends Controller
             //validation
             $rules = [
                 'nama' => 'required',
-                'notlp' => 'required',
+                'notlp' => 'required|angka',
                 'username' => 'required|satukata|unik:user',
                 'email' => 'required|email|unik:siswa',
                 'password' => 'required|sama:password2',
@@ -44,7 +61,7 @@ class Auth extends Controller
             //validation
             $rules = [
                 'nama' => 'required',
-                'notlp' => 'required',
+                'notlp' => 'required|angka',
                 'username' => 'required|satukata|unik:user',
                 'email' => 'required|email|unik:tutor',
                 'password' => 'required|sama:password2',
@@ -147,7 +164,7 @@ class Auth extends Controller
                     'nama' => 'required',
                     'namapanggilan' => 'required',
                     'jeniskelamin' => 'required',
-                    'notlp' => 'required',
+                    'notlp' => 'required|angka',
                     'tempatlahir' => 'required',
                     'tanggallahir' => 'required',
                     'alamat' => 'required',
@@ -168,7 +185,7 @@ class Auth extends Controller
                     'keterangan_pendidikan' => 'required',
                     'perguruan_tinggi' => 'required',
                     'program_studi' => 'required',
-                    'IPK' => 'required',
+                    'IPK' => 'required|angka',
                     'foto' => 'required|image|tipefile:jpg,jpeg,png',
                     'ijasah' => 'required|tipefile:pdf,jpg',
                 ];
@@ -186,8 +203,8 @@ class Auth extends Controller
                     'perkenalan' => 'required',
                     'pengalaman' => 'required',
                     'prestasi' => 'required',
-                    'biaya90menit' => 'required',
-                    'biaya120menit' => 'required',
+                    'biaya90menit' => 'required|angka',
+                    'biaya120menit' => 'required|angka',
                     'metode_mengajar' => 'required',
                     'minatngajar' => 'required',
                     'minatmapel' => 'required',
@@ -227,7 +244,7 @@ class Auth extends Controller
                     'nama' => 'required',
                     'namapanggilan' => 'required',
                     'jeniskelamin' => 'required',
-                    'notlp' => 'required',
+                    'notlp' => 'required|angka',
                     'tempatlahir' => 'required',
                     'tanggallahir' => 'required',
                     'jenjangpendidikan' => 'required',
@@ -245,7 +262,7 @@ class Auth extends Controller
                 $_POST['foto'] = $_FILES['foto'];
                 $rules = [
                     'namaortu' => 'required',
-                    'notlportu' => 'required',
+                    'notlportu' => 'required|angka',
                     'alamat' => 'required',
                     'foto' => 'required|image|tipefile:jpg,jpeg,png',
                 ];

@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+// session_start();
 class Siswa extends Controller
 {
     public function index()
@@ -9,52 +9,66 @@ class Siswa extends Controller
     }
     public function carimapel()
     {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         if (isset($_POST['cari'])) {
             $isi['tutor'] = $this->model('SiswaModel')->ambildatatutor();
             $isi['siswa'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
-            $this->view("siswa/header");
+            $this->view("siswa/header", $isi);
             $this->view("siswa/carimapel", $isi);
             $this->view("siswa/footer");
         }
     }
     public function caridaerah()
     {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         if (isset($_POST['cdaerah'])) {
             $isi['tutor'] = $this->model('SiswaModel')->satututordaerah($_POST['daerah']);
             $isi['siswa'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
-            $this->view("siswa/header");
+            $this->view("siswa/header", $isi);
             $this->view("siswa/caridaerah", $isi);
             $this->view("siswa/footer");
         }
     }
     public function dashboard()
     {
-        if (isset($_SESSION['username'])) {
-            $data = $this->model('Auth_model')->maumasuk($_SESSION['username']);
-            if ($data['verif'] == 1) {
-                $isi['tutor'] = $this->model('SiswaModel')->ambildatatutor();
-                $isi['siswa'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
-                $this->view("siswa/header");
-                $this->view("siswa/index", $isi);
-                $this->view("siswa/footer");
-            } else if ($data['profileLengkap'] == 2) {
-                if ($this->model('Auth_model')->updatedata($_SESSION['username'], 'profileLengkap', 3) != 1 || $this->model('Auth_model')->updatedata($_SESSION['username'], 'verif', 1) != 1) die;
-                $_SESSION['sukses'] = "Anda berhasil melengkapi isi data. Silahkan Login Ulang";
-                unset($_SESSION['username']);
-                unset($_SESSION['ceklengkap']);
-                header('Location: ' . BASEURL . 'auth/login');
-                die;
-            } else {
-                $_SESSION['sukses'] = "Anda belum di verifikasi oleh admin";
-                unset($_SESSION['username']);
-                unset($_SESSION['ceklengkap']);
-                header('Location: ' . BASEURL . 'auth/login');
-                die;
-            }
-        } else header('Location: ' . BASEURL . 'auth/login');
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
+        $data = $this->model('Auth_model')->maumasuk($_SESSION['username']);
+        if ($data['verif'] == 1) {
+            $isi['tutor'] = $this->model('SiswaModel')->ambildatatutor();
+            $isi['siswa'] = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
+            $this->view("siswa/header", $isi);
+            $this->view("siswa/index", $isi);
+            $this->view("siswa/footer");
+        } else if ($data['profileLengkap'] == 2) {
+            if ($this->model('Auth_model')->updatedata($_SESSION['username'], 'profileLengkap', 3) != 1 || $this->model('Auth_model')->updatedata($_SESSION['username'], 'verif', 1) != 1) die;
+            $_SESSION['sukses'] = "Anda berhasil melengkapi isi data. Silahkan Login Ulang";
+            unset($_SESSION['username']);
+            unset($_SESSION['ceklengkap']);
+            header('Location: ' . BASEURL . 'auth/login');
+            die;
+        } else {
+            $_SESSION['sukses'] = "Anda belum di verifikasi oleh admin";
+            unset($_SESSION['username']);
+            unset($_SESSION['ceklengkap']);
+            header('Location: ' . BASEURL . 'auth/login');
+            die;
+        }
     }
     public function detailtutor($id, $dimana)
     {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $data = $this->model('AdminModel')->ambilsatututor($id);
         if ($data) {
             $string[0] = '
@@ -91,6 +105,11 @@ class Siswa extends Controller
                     </tr>
                     <tr>
                         <td><b>Alamat</b></td>
+                        <td>:</td>
+                        <td>' . ucwords(strtolower($data['namakab'])) . ', ' . ucwords(strtolower($data['namakec'])) . ', ' . ucwords(strtolower($data['namakel'])) . '</td>
+                    </tr>
+                    <tr>
+                        <td><b>Alamat Detail</b></td>
                         <td>:</td>
                         <td>' . $data['alamat'] . '</td>
                     </tr>
@@ -151,12 +170,19 @@ class Siswa extends Controller
     }
     public function reservasi($tutor)
     {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $data = $this->model('SiswaModel')->ambilsatututor($tutor);
         $this->view('siswa/reservasi', $data);
     }
     public function sukreservasi()
     {
-        // if (isset($_POST['masuk'])) {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $tutor = $_POST['usertutor'];
         $user = $_SESSION['username'];
         $rules = [
@@ -172,10 +198,13 @@ class Siswa extends Controller
         } else if ($this->model('SiswaModel')->reservasi($_POST, $user) == 1) {
             echo "Sukses";
         }
-        // }
     }
     public function mycourse()
     {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $siswa = $this->model('Auth_model')->ambildatasatu($_SESSION['username'], 'siswa');
         $data = $this->model('SiswaModel')->ambilreservasi($siswa['id']);
         $this->view('siswa/header');
@@ -185,11 +214,19 @@ class Siswa extends Controller
 
     public function hapusreservasi($idnya)
     {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         if ($this->model('SiswaModel')->hapusreservasi($idnya) == 1) echo "Sukses";
     }
 
     public function yanglogin()
     {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
         $user = $_SESSION['username'];
         $siswa = $this->model('SiswaModel')->ambilsatudatasiswa($user, 'username');
         if ($siswa) {
@@ -254,5 +291,36 @@ class Siswa extends Controller
             ';
             echo $kata;
         }
+    }
+    public function editprofile($id)
+    {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
+        $siswa = $this->model('SiswaModel')->satusiswa($id);
+        $this->view('auth/editprofile', $siswa);
+    }
+    public function sukprofile()
+    {
+        if ($this->cekrolenya(3)) {
+            header('Location: ' . BASEURL);
+            die;
+        }
+        $id = $_POST['idnya'];
+        $rules = [
+            'nama' => 'required',
+            'namapanggilan' => 'required',
+            'jeniskelamin' => 'required',
+            'notlp' => 'required|angka',
+            'tempatlahir' => 'required',
+            'alamat' => 'required',
+        ];
+        if ($this->validation($_POST, $rules))
+            echo BASEURL . "siswa/editprofile/" . $id;
+        else if ($this->model('Auth_model')->updateprofile('siswa', $_POST, $_SESSION['username']) == 1)
+            echo "Sukses";
+        else
+            echo "as";
     }
 }

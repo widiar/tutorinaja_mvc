@@ -103,10 +103,10 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>No. Telepon</label>
-                                    <input type="number" name="notlp" class="form-control <?php if (isset($_SESSION['errornotlp'])) echo 'is-invalid'; ?>" value="<?php if (isset($_SESSION['valnotlp'])) {
-                                                                                                                                                                        echo $_SESSION['valnotlp'];
-                                                                                                                                                                        unset($_SESSION['valnotlp']);
-                                                                                                                                                                    } else echo $data['user']['notlp'] ?>">
+                                    <input type="text" name="notlp" class="form-control <?php if (isset($_SESSION['errornotlp'])) echo 'is-invalid'; ?>" value="<?php if (isset($_SESSION['valnotlp'])) {
+                                                                                                                                                                    echo $_SESSION['valnotlp'];
+                                                                                                                                                                    unset($_SESSION['valnotlp']);
+                                                                                                                                                                } else echo $data['user']['notlp'] ?>">
                                     <?php if (isset($_SESSION['errornotlp'])) : ?>
                                         <div class="invalid-feedback">
                                             <?= $_SESSION['errornotlp'] ?>

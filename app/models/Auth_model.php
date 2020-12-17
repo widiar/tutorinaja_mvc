@@ -216,4 +216,19 @@ class Auth_model
             }
         }
     }
+    public function updateprofile($table, $data, $user)
+    {
+        $nama = amankan($data['nama']);
+        $namapanggilan = amankan($data['namapanggilan']);
+        $jeniskelamin = amankan($data['jeniskelamin']);
+        $notlp = amankan($data['notlp']);
+        $tempatlahir = amankan($data['tempatlahir']);
+        $alamat = amankan($data['alamat']);
+        $s = "UPDATE $table SET nama=?, namapanggilan=?, jk=?, notlp=?, tempatlahir=?, alamat=? WHERE username='$user'";
+        $this->db->query($s);
+        $param = 'ssssss';
+        $values = [$nama, $namapanggilan, $jeniskelamin, $notlp, $tempatlahir, $alamat];
+        $this->db->bind($param, $values);
+        if ($this->db->execute() == 1) return 1;
+    }
 }

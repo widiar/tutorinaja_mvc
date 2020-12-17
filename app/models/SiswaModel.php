@@ -73,4 +73,8 @@ class SiswaModel
     {
         if ($this->db->queryexecute("DELETE FROM reservasi WHERE id_res='$idnya'") == 1) return 1;
     }
+    public function satusiswa($idnya)
+    {
+        return $this->db->single("SELECT * FROM siswa WHERE id='$idnya'");
+    }
 }

@@ -22,9 +22,13 @@ class AdminModel
     }
     public function ambilsatututor($id)
     {
-        $sql = "SELECT * FROM tutor JOIN riwayatpendidikan ON tutor.id=riwayatpendidikan.id_tutor 
+        $sql = "SELECT *, kabupaten.name AS namakab,  kecamatan.name AS namakec, kelurahan.name AS namakel 
+        FROM tutor JOIN riwayatpendidikan ON tutor.id=riwayatpendidikan.id_tutor 
         JOIN deskripsitutor ON tutor.id=deskripsitutor.id_tutor 
-        WHERE id='$id'";
+        JOIN kabupaten ON tutor.kabupaten=kabupaten.id 
+        JOIN kecamatan ON tutor.kecamatan=kecamatan.id 
+        JOIN kelurahan ON tutor.kelurahan=kelurahan.id 
+        WHERE tutor.id='$id'";
         return $this->db->single($sql);
     }
     public function veriftutor($user, $data)

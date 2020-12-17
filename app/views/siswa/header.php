@@ -46,14 +46,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="#" style="width: 1000px">
-                    <div class="modal-body isiprofilsiswa">
+                <div class="modal-body isiprofilsiswa">
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-info">Edit Profil</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="<?= BASEURL ?>siswa/editprofile/<?= $data['siswa']['id'] ?>">
+                        <button class="btn btn-info">Edit Profil</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

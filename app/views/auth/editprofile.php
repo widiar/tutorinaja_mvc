@@ -17,8 +17,9 @@
                 <h4 class="text-center">Edit Profile</h4>
             </div>
             <div class="card-body">
-                <form action="<?= BASEURL ?>tutor/sukprofile" method="post" class="editprofil">
-                    <input type="hidden" name="idtutor" value="<?= $data['id'] ?>">
+                <?php $tmp =  explode("/", $_SERVER['REQUEST_URI']) ?>
+                <form action="<?= BASEURL . $tmp[3] ?>/sukprofile" method="post" class="editprofil">
+                    <input type="hidden" name="idnya" value="<?= $data['id'] ?>">
                     <div class="form-group">
                         <label>Nama Lengkap</label>
                         <input type="text" class="form-control <?php if (isset($_SESSION['errornama'])) echo 'is-invalid'; ?>" name="nama" value="<?php if (isset($_SESSION['valnama'])) {
@@ -48,9 +49,11 @@
                     <div class="form-group">
                         <label>Jenis Kelamin</label>
                         <select class="form-control <?php if (isset($_SESSION['errorjeniskelamin'])) echo 'is-invalid'; ?>" name="jeniskelamin">
-                            <option selected value="">Jenis Kelamin</option>
-                            <option <?php if (isset($_SESSION['valjeniskelamin'])) if (strcmp($_SESSION['valjeniskelamin'], 'perempuan') == 0) echo 'selected'; ?> value="perempuan">Perempuan</option>
-                            <option <?php if (isset($_SESSION['valjeniskelamin'])) if (strcmp($_SESSION['valjeniskelamin'], "laki-laki") == 0) echo 'selected'; ?> value="laki-laki">Laki-Laki</option>
+                            <option value="">Jenis Kelamin</option>
+                            <option <?php if (strcmp($data['jk'], 'perempuan') == 0) echo "selected";
+                                    else if (isset($_SESSION['valjeniskelamin'])) if (strcmp($_SESSION['valjeniskelamin'], 'perempuan') == 0) echo 'selected'; ?> value="perempuan">Perempuan</option>
+                            <option <?php if (strcmp($data['jk'], 'laki-laki') == 0) echo "selected";
+                                    else if (isset($_SESSION['valjeniskelamin'])) if (strcmp($_SESSION['valjeniskelamin'], "laki-laki") == 0) echo 'selected'; ?> value="laki-laki">Laki-Laki</option>
                             <?php if (isset($_SESSION['valjeniskelamin'])) unset($_SESSION['valjeniskelamin']) ?>
                         </select>
                         <?php if (isset($_SESSION['errorjeniskelamin'])) : ?>
@@ -62,10 +65,10 @@
                     </div>
                     <div class="form-group">
                         <label>No. Telepon</label>
-                        <input type="number" name="notlp" class="form-control <?php if (isset($_SESSION['errornotlp'])) echo 'is-invalid'; ?>" value="<?php if (isset($_SESSION['valnotlp'])) {
-                                                                                                                                                            echo $_SESSION['valnotlp'];
-                                                                                                                                                            unset($_SESSION['valnotlp']);
-                                                                                                                                                        } else echo $data['notlp'] ?>">
+                        <input type="text" name="notlp" class="form-control <?php if (isset($_SESSION['errornotlp'])) echo 'is-invalid'; ?>" value="<?php if (isset($_SESSION['valnotlp'])) {
+                                                                                                                                                        echo $_SESSION['valnotlp'];
+                                                                                                                                                        unset($_SESSION['valnotlp']);
+                                                                                                                                                    } else echo $data['notlp'] ?>">
                         <?php if (isset($_SESSION['errornotlp'])) : ?>
                             <div class="invalid-feedback">
                                 <?= $_SESSION['errornotlp'] ?>
