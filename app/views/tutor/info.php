@@ -33,11 +33,11 @@
                         <p class="text-body" id="text-info">Untuk mengaktifkan akun pada website Tutorin Aja!, Anda dikenakan biaya sebesar 50.000/bulan.
                             Proses validasi bukti pembayaran dilakukan oleh admin selama kurang lebih 1x24 jam.</p>
                         <label>Bukti Pembayaran dapat diunggah di bawah ini :</label><br>
-                        <form action="<?= BASEURL ?>tutor/uploadbukti/<?= $_SESSION['username'] ?>" method="post" enctype="multipart/form-data">
+                        <form action="<?= BASEURL ?>tutor/uploadbukti/<?= $_SESSION['username'] ?>" method="post" enctype="multipart/form-data" class="buktibayar">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input <?php if (isset($_SESSION['errorbuktibayar'])) echo 'is-invalid'; ?>" id="customFile" name="buktibayar">
                                 <label class="custom-file-label" for="customFile">Pilih File</label>
-                                <small class="text-info">file harus: jpg atau pdf</small>
+                                <small class="text-info">file harus: jpg,png,jpeg</small>
                                 <?php if (isset($_SESSION['errorbuktibayar'])) : ?>
                                     <div class="invalid-feedback">
                                         <?= $_SESSION['errorbuktibayar'] ?>

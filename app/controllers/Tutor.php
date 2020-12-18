@@ -199,9 +199,15 @@ class Tutor extends Controller
             header('Location: ' . BASEURL);
             die;
         }
-        if ($this->model('TutorModel')->uploadbukti($_FILES, $user) == 1) {
-            header('Location: ' . BASEURL . 'tutor/info/');
+        $rules = [
+            'buktibayar' => 'required|image|tipefile:png,jpg,jpeg',
+        ];
+        if ($this->validation($_FILES, $rules)) {
+            echo BASEURL . 'tutor/info/';
             die;
+        }
+        if ($this->model('TutorModel')->uploadbukti($_FILES, $user) == 1) {
+            echo "Sukses";
         }
     }
     public function editprofile($id)

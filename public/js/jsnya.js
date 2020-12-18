@@ -122,6 +122,27 @@ $(document).ready(function(){
         });
         $("#modalprofilTutor").modal('show');
     });
+    $(".buktibayar").submit(function(e){
+        e.preventDefault();
+        var data = new FormData(this);
+        $.ajax({
+            url: $(this).attr("action"),
+            type: $(this).attr("method"),
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function(msg){
+                if(msg == "Sukses"){
+                    Swal.fire(
+                        'Sukses',
+                        'Berhasil upload bukti',
+                        'success'
+                    ).then((result)=> {window.location.href = ''; });
+                }
+                else window.location.href = msg;
+            }
+        })
+    })
     $(".formreservasi").submit(function(e){
         e.preventDefault();
         $.ajax({
